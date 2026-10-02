@@ -1,0 +1,355 @@
+{
+  "schema_version": 1,
+  "engine": "4.6.stable.official.89cea1439",
+  "status": "passed",
+  "runs": [
+    {
+      "name": "baseline-800x600",
+      "variant": "baseline",
+      "passed": true,
+      "expected_failure": false,
+      "capture": {
+        "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "agent_behavior_tested": false,
+        "capture_complete": true,
+        "captures": [
+          {
+            "file": "captures/long-text.png",
+            "height": 600,
+            "name": "long-text",
+            "width": 800
+          },
+          {
+            "file": "captures/no-choices.png",
+            "height": 600,
+            "name": "no-choices",
+            "width": 800
+          },
+          {
+            "file": "captures/returned.png",
+            "height": 600,
+            "name": "returned",
+            "width": 800
+          }
+        ],
+        "checks": 34,
+        "display": "X11",
+        "failures": [],
+        "input_scope": "Viewport synthetic events, not OS hardware",
+        "renderer": "gl_compatibility",
+        "visual_pixels_reviewed": false,
+        "window": [
+          800,
+          600
+        ]
+      },
+      "images": [
+        {
+          "state": "long-text",
+          "file": "images/baseline-800x600/long-text.png",
+          "bytes": 105127,
+          "sha256": "dbc8afb51901c2642ff0c638cbfb4bddcb63ece90803f6e4594c25731b319434",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "no-choices",
+          "file": "images/baseline-800x600/no-choices.png",
+          "bytes": 99926,
+          "sha256": "4c4d2cd7cdc7a1148cb35cf942a7565b7c97b42c45ef72662ef380b896fc7298",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "returned",
+          "file": "images/baseline-800x600/returned.png",
+          "bytes": 29435,
+          "sha256": "c6c413e00a72647d4c8a1bac50a934970f97c104f5487e431ec365ecd690e01d",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "evidence": "logs/baseline-800x600"
+    },
+    {
+      "name": "baseline-1280x720",
+      "variant": "baseline",
+      "passed": true,
+      "expected_failure": false,
+      "capture": {
+        "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "agent_behavior_tested": false,
+        "capture_complete": true,
+        "captures": [
+          {
+            "file": "captures/long-text.png",
+            "height": 720,
+            "name": "long-text",
+            "width": 1280
+          },
+          {
+            "file": "captures/no-choices.png",
+            "height": 720,
+            "name": "no-choices",
+            "width": 1280
+          },
+          {
+            "file": "captures/returned.png",
+            "height": 720,
+            "name": "returned",
+            "width": 1280
+          }
+        ],
+        "checks": 34,
+        "display": "X11",
+        "failures": [],
+        "input_scope": "Viewport synthetic events, not OS hardware",
+        "renderer": "gl_compatibility",
+        "visual_pixels_reviewed": false,
+        "window": [
+          1280,
+          720
+        ]
+      },
+      "images": [
+        {
+          "state": "long-text",
+          "file": "images/baseline-1280x720/long-text.png",
+          "bytes": 106963,
+          "sha256": "2551473858d3b620e68c09f1218bff573a23b8a9ef61ca5c873ee0eea06f8971",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "state": "no-choices",
+          "file": "images/baseline-1280x720/no-choices.png",
+          "bytes": 101755,
+          "sha256": "f664876cf3f4dd7d2c97265085f1139f5219a8457e8ca9c9027c9a866540a177",
+          "width": 1280,
+          "height": 720
+        },
+        {
+          "state": "returned",
+          "file": "images/baseline-1280x720/returned.png",
+          "bytes": 32023,
+          "sha256": "67eb657e1c31d072ba91813edbab2b7c8a5eecf6bfb17ae41b599a1990970b91",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "evidence": "logs/baseline-1280x720"
+    },
+    {
+      "name": "baseline-1600x900",
+      "variant": "baseline",
+      "passed": true,
+      "expected_failure": false,
+      "capture": {
+        "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "agent_behavior_tested": false,
+        "capture_complete": true,
+        "captures": [
+          {
+            "file": "captures/long-text.png",
+            "height": 900,
+            "name": "long-text",
+            "width": 1600
+          },
+          {
+            "file": "captures/no-choices.png",
+            "height": 900,
+            "name": "no-choices",
+            "width": 1600
+          },
+          {
+            "file": "captures/returned.png",
+            "height": 900,
+            "name": "returned",
+            "width": 1600
+          }
+        ],
+        "checks": 34,
+        "display": "X11",
+        "failures": [],
+        "input_scope": "Viewport synthetic events, not OS hardware",
+        "renderer": "gl_compatibility",
+        "visual_pixels_reviewed": false,
+        "window": [
+          1600,
+          900
+        ]
+      },
+      "images": [
+        {
+          "state": "long-text",
+          "file": "images/baseline-1600x900/long-text.png",
+          "bytes": 107512,
+          "sha256": "d6985c659fb196bf2e263504f23edcaf5bbf262ba543f610fb6908377a251087",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "state": "no-choices",
+          "file": "images/baseline-1600x900/no-choices.png",
+          "bytes": 102128,
+          "sha256": "7097e490e373b556e7193d4e617fe4ff1a2035240c7d461180f31204c3cabd45",
+          "width": 1600,
+          "height": 900
+        },
+        {
+          "state": "returned",
+          "file": "images/baseline-1600x900/returned.png",
+          "bytes": 34665,
+          "sha256": "343e757a50dda3d88d810778f7b109027b2b29c417bbde583cf309aa8546b5a5",
+          "width": 1600,
+          "height": 900
+        }
+      ],
+      "evidence": "logs/baseline-1600x900"
+    },
+    {
+      "name": "text-clipping-800x600",
+      "variant": "text-clipping",
+      "passed": true,
+      "expected_failure": true,
+      "capture": {
+        "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "agent_behavior_tested": false,
+        "capture_complete": true,
+        "captures": [
+          {
+            "file": "captures/long-text.png",
+            "height": 600,
+            "name": "long-text",
+            "width": 800
+          },
+          {
+            "file": "captures/no-choices.png",
+            "height": 600,
+            "name": "no-choices",
+            "width": 800
+          },
+          {
+            "file": "captures/returned.png",
+            "height": 600,
+            "name": "returned",
+            "width": 800
+          }
+        ],
+        "checks": 34,
+        "display": "X11",
+        "failures": [
+          "text/wrapped"
+        ],
+        "input_scope": "Viewport synthetic events, not OS hardware",
+        "renderer": "gl_compatibility",
+        "visual_pixels_reviewed": false,
+        "window": [
+          800,
+          600
+        ]
+      },
+      "images": [
+        {
+          "state": "long-text",
+          "file": "images/text-clipping-800x600/long-text.png",
+          "bytes": 57588,
+          "sha256": "3ab29454548d7597cc54f0b942a836714435fa0d3438fb2c4f1ab9ffac51b3e8",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "no-choices",
+          "file": "images/text-clipping-800x600/no-choices.png",
+          "bytes": 52130,
+          "sha256": "87be9ffcee9065b409aefcd05269266dd223d2b9f146d3560312541bdc9bdfd4",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "returned",
+          "file": "images/text-clipping-800x600/returned.png",
+          "bytes": 29435,
+          "sha256": "c6c413e00a72647d4c8a1bac50a934970f97c104f5487e431ec365ecd690e01d",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "evidence": "logs/text-clipping-800x600"
+    },
+    {
+      "name": "pointer-blocker-800x600",
+      "variant": "pointer-blocker",
+      "passed": true,
+      "expected_failure": true,
+      "capture": {
+        "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+        "agent_behavior_tested": false,
+        "capture_complete": true,
+        "captures": [
+          {
+            "file": "captures/long-text.png",
+            "height": 600,
+            "name": "long-text",
+            "width": 800
+          },
+          {
+            "file": "captures/no-choices.png",
+            "height": 600,
+            "name": "no-choices",
+            "width": 800
+          },
+          {
+            "file": "captures/returned.png",
+            "height": 600,
+            "name": "returned",
+            "width": 800
+          }
+        ],
+        "checks": 33,
+        "display": "X11",
+        "failures": [
+          "input/click-delivered",
+          "input/return-restores-focus"
+        ],
+        "input_scope": "Viewport synthetic events, not OS hardware",
+        "renderer": "gl_compatibility",
+        "visual_pixels_reviewed": false,
+        "window": [
+          800,
+          600
+        ]
+      },
+      "images": [
+        {
+          "state": "long-text",
+          "file": "images/pointer-blocker-800x600/long-text.png",
+          "bytes": 105127,
+          "sha256": "dbc8afb51901c2642ff0c638cbfb4bddcb63ece90803f6e4594c25731b319434",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "no-choices",
+          "file": "images/pointer-blocker-800x600/no-choices.png",
+          "bytes": 99926,
+          "sha256": "4c4d2cd7cdc7a1148cb35cf942a7565b7c97b42c45ef72662ef380b896fc7298",
+          "width": 800,
+          "height": 600
+        },
+        {
+          "state": "returned",
+          "file": "images/pointer-blocker-800x600/returned.png",
+          "bytes": 99926,
+          "sha256": "4c4d2cd7cdc7a1148cb35cf942a7565b7c97b42c45ef72662ef380b896fc7298",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "evidence": "logs/pointer-blocker-800x600"
+    }
+  ],
+  "visual_pixels_reviewed": false,
+  "agent_behavior_tested": false,
+  "scope": "synthetic fixture pixels, layout and Viewport input, not user game or OS input"
+}
