@@ -53,6 +53,41 @@ jobs:
         with:
           name: godot-contract-evidence
           path: ${{ runner.temp }}/fixture-evidence
+      - name: Calibrate task grader with broken and known-good candidates (no agent)
+        env:
+          GODOT_SILENCE_ROOT_WARNING: '1'
+        shell: bash
+        run: |
+          export GODOT_BIN="$RUNNER_TEMP/godot-bin/Godot_v4.6-stable_linux.x86_64"
+          python - <<'PYCODE'
+          import json, os, shutil, sys
+          from pathlib import Path
+          sys.path.insert(0, 'tools')
+          import check_fixtures as fixtures
+          import prepare_agent_trial as trials
+          root = Path(os.environ['RUNNER_TEMP']) / 'grader-calibration'
+          rows = []
+          for variant in trials.TASKS:
+              trial = root / variant / 'trial'
+              trials.prepare_trial(trial, variant, 'codex', False)
+              bad_dir = root / variant / 'bad'
+              bad = trials.grade_trial(trial, os.environ['GODOT_BIN'], bad_dir)
+              filename, _, _, mode, label = fixtures.MUTATIONS[variant]
+              assert bad['status'] == 'task_contract_failed', variant
+              assert ('ASSERT FAIL: ' + label) in (bad_dir / 'logs' / mode / 'stderr.log').read_text(), variant
+              skill = fixtures.EXAMPLES[filename]
+              shutil.copyfile(Path('skills') / skill / 'references' / filename, trial / 'project/examples' / filename)
+              good = trials.grade_trial(trial, os.environ['GODOT_BIN'], root / variant / 'good')
+              assert good['status'] == 'task_contract_passed', variant
+              rows.append({'variant': variant, 'broken_rejected': True, 'known_good_accepted': True})
+          (root / 'summary.json').write_text(json.dumps({'calibration': rows, 'agent_behavior_tested': False}, indent=2))
+          PYCODE
+      - name: Retain task grader calibration evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: grader-calibration
+          path: ${{ runner.temp }}/grader-calibration
       - name: Install CI-only display and CJK font dependencies
         run: |
           sudo apt-get update -qq
@@ -69,3 +104,44 @@ jobs:
         with:
           name: visual-evidence
           path: ${{ runner.temp }}/visual-evidence
+  preserve-reviewed-captures:
+    needs: godot-contracts
+    if: github.ref == 'refs/heads/feat/behavior-visual-validation' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve the exact already-reviewed capture bytes in this branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          destination=docs/evidence/visual-37067190631
+          if test -d "$destination"; then exit 0; fi
+          gh run download 37067190631 -n visual-evidence -D "$RUNNER_TEMP/reviewed-visual"
+          python - <<'PYCODE'
+          import hashlib, json, os, shutil
+          from pathlib import Path
+          source = Path(os.environ['RUNNER_TEMP']) / 'reviewed-visual'
+          destination = Path('docs/evidence/visual-37067190631')
+          summary = json.loads((source / 'summary.json').read_text())
+          assert summary['status'] == 'passed' and len(summary['runs']) == 5
+          destination.mkdir(parents=True, exist_ok=False)
+          for run in summary['runs']:
+              for image in run['images']:
+                  relative = Path(image['file'])
+                  assert not relative.is_absolute() and '..' not in relative.parts and relative.parts[0] == 'images'
+                  data = (source / relative).read_bytes()
+                  assert hashlib.sha256(data).hexdigest() == image['sha256']
+                  target = destination / relative
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(data)
+          shutil.copyfile(source / 'summary.json', destination / 'summary.json')
+          PYCODE
+          git add -- "$destination"
+          git -c user.name='Visual Evidence Archive' -c user.email='evidence@localhost' commit -m 'docs: preserve reviewed Godot PNG captures and original checksums'
+          git push origin HEAD:refs/heads/feat/behavior-visual-validation
