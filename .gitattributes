@@ -1,0 +1,5 @@
+# Hashes cover the worktree bytes; make checkout independent of core.autocrlf.
+* text=auto eol=lf
+*.png -text
+*.zip -text
+*.bundle -text

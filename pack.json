@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "id": "godot-agent-skills",
-  "version": "0.1.0-preview.1",
+  "version": "0.1.0-review-engine-probe",
   "skills": {
     "godot-code-scenes": {
       "files": {
@@ -9,7 +9,8 @@
         "SKILL.md": "70542584457aefc2e8ad7cadfbd0e12d23d85d33ad140c9c91fff2fb6ad95b0a",
         "references/lifecycle.md": "25fc4f2d80d84d949028f0c11a8963b2b5736bc64ec0ca5f3369d901749356ae",
         "references/scene-roundtrip.md": "a20dc0161130eb1c68ade18093adb41a06847eddc79f39ddf55b2632bafaf745",
-        "references/sources.md": "718949fd7a84fb3b2a0272790fdb26de3191ffe7041ed87a99f196e1f73db87e"
+        "references/sources.md": "718949fd7a84fb3b2a0272790fdb26de3191ffe7041ed87a99f196e1f73db87e",
+        "references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd"
       }
     },
     "godot-data-state": {
@@ -18,7 +19,8 @@
         "SKILL.md": "dd43227d1ed8b219ba7783b20ea085623934faaa2ec8b4921814e554aa22fe51",
         "references/sources.md": "2b6125be4460e6c2f7ab9d6c9a3bcf0cc164b321e7b60d248ee7cf8ed0bfb963",
         "references/state-ownership.md": "f1ed066d12cb915693f2a1bd2783f1c3567bd5c0bbd5aee9ca9928d954d6dcce",
-        "references/transactions-time.md": "a8d4e78901d78d4231cd50856463dfe7169fcfcab71f29054d5e733913d8ee55"
+        "references/transactions-time.md": "a8d4e78901d78d4231cd50856463dfe7169fcfcab71f29054d5e733913d8ee55",
+        "references/runtime_state.gd": "9c10f61246d16f1acafa37471e0dd043135b26021f1f9f8eb7dca189c3d44842"
       }
     },
     "godot-debugging": {
@@ -36,7 +38,8 @@
         "SKILL.md": "5f28288d5fbb0092450f698b5adf268787c57ad4e6dc748f45010db5c8480551",
         "references/content-validation.md": "53a11fe8db8950eb843e72d6d18041b5db41b1d2b71228641976721c9108af1d",
         "references/dialogue-contract.md": "1669ec4eecb9344efd0822cb98e1e581a151c95bea305e2f2670c9bbc28ea48c",
-        "references/sources.md": "6892f14f8e9423f7628c0940e3cfea03f4c84257372a3c34ee5569968736c81b"
+        "references/sources.md": "6892f14f8e9423f7628c0940e3cfea03f4c84257372a3c34ee5569968736c81b",
+        "references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12"
       }
     },
     "godot-save-load": {
@@ -45,7 +48,8 @@
         "SKILL.md": "82892a7b4430caa46afabfe22dab65b7091fb3fe36677f9acbe4fc297f09fafd",
         "references/load-migration.md": "ac0e5198ec2f41f39c989c481b2171f397fa9741fa365983fd8d03df96f15fba",
         "references/sources.md": "c558c5b8a8279fed99414c2ca01853f8a91f717498666a67a959a21fbfc94612",
-        "references/write-recovery.md": "5d4d2b420d7f9f8db39b4a504211c8dffe58fdd60086237bec6e5f74a91843f1"
+        "references/write-recovery.md": "5d4d2b420d7f9f8db39b4a504211c8dffe58fdd60086237bec6e5f74a91843f1",
+        "references/save_envelope.gd": "f9ec3cb67cf639a4ede5d211c8a92a9fed70d6e5f6988f88476834b29d091f9f"
       }
     },
     "godot-ui": {
@@ -54,7 +58,8 @@
         "SKILL.md": "03d22439cd6a69425b135a2837b4164ce9bcf96bce218a75453b45f21a4fe442",
         "references/input-visual.md": "0330e536a30c760d1420c5582d4711fa9c6d92fc238f68d1f6072bdf9f85d53d",
         "references/layout-localization.md": "c9370de83d439ed67341f97db84fa53079f5a4c18dc07ecda1838f0a49aac86b",
-        "references/sources.md": "7455dab55d776c9750af249a43c2e26b240aab43789315d2573f7d0cefe3ed6e"
+        "references/sources.md": "7455dab55d776c9750af249a43c2e26b240aab43789315d2573f7d0cefe3ed6e",
+        "references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559"
       }
     },
     "godot-verification": {
@@ -64,7 +69,7 @@
         "references/commands.md": "993fda65dc09e16fb18087be631ca2c8057d5381fce4e6c9fad7be593efcbe48",
         "references/coverage.md": "6d1bbb0f9620d07a0ee8b15f04434f953ae7d14ff459c2494dd5140aa380c30c",
         "references/sources.md": "e274f1d09b2ee1c2febd57edea1c5e7752d1877dec2006a92cc90565e4dbbc71",
-        "scripts/run_check.py": "bca024afdb91061dcc14fe9cb585e395aba3e373e2acc2d23ec4cc56980419a8"
+        "scripts/run_check.py": "2d5c3adf2ab338720e310602802ebaf315c921ff0a737f63c645fb9869bd1dd6"
       }
     }
   }

@@ -14,6 +14,8 @@ import math
 import os
 from pathlib import Path
 import re
+import queue
+import threading
 import signal
 import subprocess
 import sys
@@ -91,33 +93,123 @@ def stop_process(process: subprocess.Popen[bytes]) -> None:
     process.wait()
 
 
+def read_output(pipe, label: str, messages: queue.Queue, cancelled: threading.Event) -> None:
+    """Pump bounded pipe chunks; only the coordinator may write evidence files.
+
+    A cancelled reader can remain blocked on an escaped descendant's pipe on some
+    platforms. It is a daemon and never owns a log file or mutates a report.
+    """
+    try:
+        while not cancelled.is_set():
+            data = os.read(pipe.fileno(), CHUNK)
+            message = (label, 'data', data) if data else (label, 'eof', b'')
+            while not cancelled.is_set():
+                try:
+                    messages.put(message, timeout=0.05)
+                    break
+                except queue.Full:
+                    continue
+            if not data:
+                return
+    except (OSError, ValueError) as exc:
+        while not cancelled.is_set():
+            try:
+                messages.put((label, 'error', str(exc)), timeout=0.05)
+                return
+            except queue.Full:
+                continue
+
+
+def capture_output(process, outputs: dict, deadline: float) -> tuple[bool, bool, bool, list[str]]:
+    """Wait for direct-child exit AND both output EOFs within one total budget.
+
+    The bounded queue prevents unbounded RAM use; inherited writers never receive
+    handles to the evidence files. Timeout/interruption closes capture after a
+    bounded drain, so a report cannot later be changed by a still-running writer.
+    """
+    messages: queue.Queue = queue.Queue(maxsize=32)
+    cancelled = threading.Event()
+    streams = {'stdout': process.stdout, 'stderr': process.stderr}
+    workers = []
+    for label, pipe in streams.items():
+        worker = threading.Thread(target=read_output, args=(pipe, label, messages, cancelled), daemon=True)
+        worker.start()
+        workers.append(worker)
+    pending = set(streams)
+    errors: list[str] = []
+    timed_out = interrupted = False
+
+    def consume(wait: float) -> None:
+        """Serialize all log writes and terminal stream events on the caller."""
+        try:
+            label, kind, data = messages.get(timeout=max(0.001, wait))
+        except queue.Empty:
+            return
+        if kind == 'data':
+            outputs[label].write(data)
+        else:
+            pending.discard(label)
+            if kind == 'error':
+                errors.append(f'{label}: {data}')
+
+    try:
+        try:
+            while pending or process.poll() is None:
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    timed_out = True
+                    break
+                consume(min(0.05, remaining))
+        except KeyboardInterrupt:
+            interrupted = True
+        if timed_out or interrupted:
+            stop_process(process)
+            drain_deadline = time.monotonic() + 0.5
+            while pending and time.monotonic() < drain_deadline:
+                consume(min(0.05, drain_deadline - time.monotonic()))
+        else:
+            process.wait()
+        return timed_out, interrupted, not pending and not errors, errors
+    finally:
+        # No thread writes files. After this point late output cannot modify logs.
+        cancelled.set()
+        for pipe in streams.values():
+            pipe.close()
+        for worker in workers:
+            worker.join(timeout=0.05)
+
+
 def execute(command: list[str], cwd: Path, timeout: float, out: Path,
             markers: list[str]) -> tuple[dict, int]:
-    """Run one explicit command and write logs plus an observation report."""
+    """Run an explicit foreground command and finalize stable captured evidence.
+
+    EOF proves output capture ended, not that redirected/detached work succeeded.
+    The caller's foreground runner must join such work and report its failures.
+    """
     out.mkdir(parents=True, exist_ok=False)
     started = utc_now()
     before = time.monotonic()
-    timed_out = False
-    interrupted = False
+    timed_out = interrupted = streams_complete = False
+    capture_errors: list[str] = []
     launch_error = None
     returncode = None
     stdout_path, stderr_path = out / 'stdout.log', out / 'stderr.log'
     with stdout_path.open('wb') as stdout, stderr_path.open('wb') as stderr:
+        process = None
         try:
-            process = subprocess.Popen(command, cwd=str(cwd), stdout=stdout, stderr=stderr,
-                                       stdin=subprocess.DEVNULL, start_new_session=(os.name == 'posix'))
-            try:
-                returncode = process.wait(timeout=timeout)
-            except subprocess.TimeoutExpired:
-                timed_out = True
-                stop_process(process)
-                returncode = process.returncode
-            except KeyboardInterrupt:
-                interrupted = True
-                stop_process(process)
-                returncode = process.returncode
+            process = subprocess.Popen(command, cwd=str(cwd), stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                       bufsize=0, stdin=subprocess.DEVNULL,
+                                       start_new_session=(os.name == 'posix'))
+            timed_out, interrupted, streams_complete, capture_errors = capture_output(
+                process, {'stdout': stdout, 'stderr': stderr}, before + timeout)
+            returncode = process.returncode
         except OSError as exc:
-            launch_error = f'{type(exc).__name__}: {exc}'
+            if process is None:
+                launch_error = f'{type(exc).__name__}: {exc}'
+            else:
+                stop_process(process)
+                returncode = process.returncode
+                capture_errors.append(f'{type(exc).__name__}: {exc}')
 
     error_lines: list[dict] = []
     error_count = 0
@@ -128,7 +220,8 @@ def execute(command: list[str], cwd: Path, timeout: float, out: Path,
         error_count += count
         seen.update(found)
     missing = [marker for marker in markers if marker not in seen]
-    passed = not (launch_error or timed_out or interrupted or returncode != 0 or error_count or missing)
+    passed = not (launch_error or timed_out or interrupted or returncode != 0 or error_count
+                  or missing or capture_errors or not streams_complete)
     status = 'command_passed' if passed else 'command_failed'
     if launch_error:
         status = 'launch_failed'
@@ -136,13 +229,17 @@ def execute(command: list[str], cwd: Path, timeout: float, out: Path,
         status = 'timed_out'
     elif interrupted:
         status = 'interrupted'
+    elif capture_errors or not streams_complete:
+        status = 'capture_incomplete'
     report = {
-        'schema_version': 1, 'status': status,
+        'schema_version': 2, 'status': status,
         'command': command, 'cwd': str(cwd), 'started_at': started, 'finished_at': utc_now(),
         'elapsed_seconds': round(time.monotonic() - before, 4), 'timeout_seconds': timeout,
         'returncode': returncode, 'timed_out': timed_out, 'interrupted': interrupted,
         'launch_error': launch_error, 'required_markers': markers, 'missing_markers': missing,
         'error_count': error_count, 'error_lines': error_lines,
+        'streams_complete': streams_complete, 'capture_errors': capture_errors,
+        'completion_contract': 'direct-child-exit-and-both-output-EOFs; not detached-work verification',
         'error_detection': 'common-line-prefix-heuristic; not a complete test protocol parser',
         'completion_marker_checked': bool(markers), 'proves_game_quality': False,
         'process_cleanup': 'POSIX process group' if os.name == 'posix' else 'direct child only',

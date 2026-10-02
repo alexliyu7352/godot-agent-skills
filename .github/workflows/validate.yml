@@ -21,3 +21,35 @@ jobs:
         env:
           PYTHONDONTWRITEBYTECODE: '1'
         run: python -m unittest discover -s tests -v
+  godot-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch pinned official Godot (CI only; not part of installer)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/godot-bin"
+          cd "$RUNNER_TEMP/godot-bin"
+          base=https://github.com/godotengine/godot/releases/download/4.6-stable
+          asset=Godot_v4.6-stable_linux.x86_64.zip
+          curl --fail --location --retry 3 "$base/$asset" -o "$asset"
+          curl --fail --location --retry 3 "$base/SHA512-SUMS.txt" -o SHA512-SUMS.txt
+          grep " $asset\$" SHA512-SUMS.txt > selected.sha512
+          sha512sum --check selected.sha512
+          unzip -q "$asset"
+          chmod +x Godot_v4.6-stable_linux.x86_64
+      - name: Check examples and require injected faults to be detected
+        env:
+          GODOT_SILENCE_ROOT_WARNING: '1'
+        run: python tools/check_fixtures.py --godot "$RUNNER_TEMP/godot-bin/Godot_v4.6-stable_linux.x86_64" --out "$RUNNER_TEMP/fixture-evidence"
+      - name: Retain complete engine evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-contract-evidence
+          path: ${{ runner.temp }}/fixture-evidence

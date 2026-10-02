@@ -27,6 +27,15 @@ class RollbackIncomplete(RuntimeError):
     """Signal that recovery material and the cooperative lock must be retained."""
 
 
+class MutationRolledBack(RuntimeError):
+    """Report a failed mutation whose installed state was restored."""
+
+    def __init__(self, original: BaseException, cleanup_path: Path | None = None):
+        """Retain the original failure and any leftover disposable staging directory."""
+        super().__init__(str(original))
+        self.cleanup_path = cleanup_path
+
+
 def read_receipt(path: Path, host: str) -> dict | None:
     """Validate receipt ownership paths before they can authorize any removal."""
     reject_symlinks(path)
@@ -76,7 +85,7 @@ def preflight(destination: Path, host: str, manifest: dict, update: bool, remove
     return 'update', old
 
 
-def mutate(destination: Path, action: str, manifest: dict, host: str) -> None:
+def mutate(destination: Path, action: str, manifest: dict, host: str) -> dict:
     """Stage all files then replace owned directories, rolling back normal failures.
 
     Process/power loss is not transactionally recovered; the lock is deliberately
@@ -92,7 +101,6 @@ def mutate(destination: Path, action: str, manifest: dict, host: str) -> None:
     moved_old: list[str] = []
     placed_new: list[str] = []
     receipt_touched = False
-    rollback_ok = True
     try:
         if action != 'uninstall':
             for name, item in manifest['skills'].items():
@@ -135,14 +143,22 @@ def mutate(destination: Path, action: str, manifest: dict, host: str) -> None:
                 else:
                     receipt_path.write_bytes(original_receipt)
         except BaseException as rollback_error:
-            rollback_ok = False
             raise RollbackIncomplete(
                 f'preserve and inspect {staging}: {rollback_error}'
             ) from original_error
-        raise
-    finally:
-        if rollback_ok:
+        try:
             shutil.rmtree(staging)
+        except OSError:
+            raise MutationRolledBack(original_error, staging) from original_error
+        raise MutationRolledBack(original_error) from original_error
+    # Receipt and directory moves are committed. Never roll back after disposal
+    # has started: backups may already have been partly removed.
+    try:
+        shutil.rmtree(staging)
+    except OSError as exc:
+        return {'status': 'committed_cleanup_pending', 'cleanup_path': str(staging),
+                'cleanup_error': f'{type(exc).__name__}: {exc}'}
+    return {'status': 'committed', 'cleanup_path': None}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -183,9 +199,10 @@ def main(argv: list[str] | None = None) -> int:
             lock.write(f'pid={os.getpid()}\n')
         # The cooperative lock is held; verify the preflight snapshot again.
         action, old = preflight(destination, args.host, manifest, args.update, args.uninstall)
+        outcome = {'status': 'unchanged', 'cleanup_path': None}
         if action != 'unchanged':
-            mutate(destination, action, manifest, args.host)
-        print(json.dumps({'action': action, 'destination': str(destination), 'version': manifest['version']},
+            outcome = mutate(destination, action, manifest, args.host)
+        print(json.dumps({'action': action, 'destination': str(destination), 'version': manifest['version'], **outcome},
                          ensure_ascii=False))
         print('Review global/plugin/ancestor skills separately; this command never disables or removes them.')
         return 0
@@ -193,12 +210,19 @@ def main(argv: list[str] | None = None) -> int:
         retain_lock = True
         print(f'ROLLBACK INCOMPLETE (lock retained): {exc}', file=sys.stderr)
         return 3
+    except MutationRolledBack as exc:
+        print(json.dumps({'status': 'rolled_back', 'error': str(exc),
+                          'cleanup_path': str(exc.cleanup_path) if exc.cleanup_path else None}), file=sys.stderr)
+        return 2
     except (OSError, ValueError, TypeError, KeyError) as exc:
-        print(f'INSTALL REFUSED: {exc}', file=sys.stderr)
+        print(f'INSTALL REFUSED (refused_before_change): {exc}', file=sys.stderr)
         return 2
     finally:
         if locked and not retain_lock and lock_path is not None:
-            lock_path.unlink(missing_ok=True)
+            try:
+                lock_path.unlink(missing_ok=True)
+            except OSError as exc:
+                print(f'LOCK CLEANUP PENDING: inspect {lock_path}: {exc}', file=sys.stderr)
 
 
 if __name__ == '__main__':
