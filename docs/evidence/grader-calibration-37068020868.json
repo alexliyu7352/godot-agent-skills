@@ -1,0 +1,35 @@
+{
+  "calibration": [
+    {
+      "variant": "scene-owner",
+      "broken_rejected": true,
+      "known_good_accepted": true
+    },
+    {
+      "variant": "resource-alias",
+      "broken_rejected": true,
+      "known_good_accepted": true
+    },
+    {
+      "variant": "ui-shared-theme",
+      "broken_rejected": true,
+      "known_good_accepted": true
+    },
+    {
+      "variant": "dialogue-empty",
+      "broken_rejected": true,
+      "known_good_accepted": true
+    },
+    {
+      "variant": "future-save",
+      "broken_rejected": true,
+      "known_good_accepted": true
+    }
+  ],
+  "agent_behavior_tested": false,
+  "run_id": 37068020868,
+  "commit": "c70c2c80c10593393a609b9d9cb65770477ee81e",
+  "artifact_id": 11253442431,
+  "artifact_sha256": "1f1c35d66e934002463b3b00e090c39a8192868621eb70f13d2e4f5a512e01ce",
+  "kind": "known-bad/known-good grader calibration; not agent evaluation"
+}

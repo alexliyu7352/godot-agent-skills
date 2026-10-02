@@ -2,11 +2,11 @@
 
 面向**已经在开发中的 Godot 4 游戏**，尤其是长期策略／角色扮演项目。它是七个按任务使用的领域技能，不是游戏内 AI，也不是新的项目总控或游戏生成器。
 
-**版本：0.1.0-preview.2，完整修订已保存到 GitHub `main`。** 七个技能、参考实现、工具、52 项回归测试及来源记录均已发布，不再依赖会话下载包。完整恢复提交为 [0804e62](https://github.com/alexliyu7352/godot-agent-skills/commit/0804e625518516a1436c62d36654823b5054af31)，目录树与原始交付包逐字节一致。
+**安装包版本：0.1.0-preview.2。** 完整包已在 `main`；本轮只增加验证材料和准备工具，七个技能与 `pack.json` 的安装内容未改变。源码、参考实现、工具、来源与许可证均保存在 GitHub，不依赖会话下载。
 
-**完整版本 CI 已通过**：[运行 37064506770](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37064506770) 中 Python 3.11 / 3.13 各通过 52 项测试，Godot 4.6 的 15 个检查步骤符合预期（含五种定点故障检测）。后续提交状态以 [main 分支 CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 为准。
+**验证进展：**离线回归增加到 60 项；Godot 4.6 的 15 个原始合同步骤继续通过；新增真实 X11/OpenGL 中文界面渲染，三个窗口各 34 条断言通过，并抓住两种故意 UI 错误。[运行 37068020868](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37068020868)还校准了五组已知坏/已知好候选的独立评分器。后续提交以 [main CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 为准。
 
-真实 Codex/Claude 自动触发、38 个 Agent 行为案例和游戏视觉效果仍未验证；不要把 CI 通过理解为已经保证游戏质量。参见 [验证报告](docs/TEST_REPORT.md) 和 [发布记录](docs/PUBLISH.md)。旧的 `test/review-godot-contracts` 只保留为历史测试分支，不作为安装入口。
+[15 张原始截图与摘要](docs/evidence/visual-37067190631/)已纳入 Git；[实际图像查看记录](docs/VISUAL_REVIEW.md)明确区分已看过的图片、合成事件和真实游戏。真实 Codex/Claude 自动触发及 38 个 Agent 案例仍为 `NOT_RUN`；CI 和评分器通过不能证明 Agent 提效或保证游戏质量。
 
 ## 七个入口
 
@@ -73,6 +73,12 @@ python3 tools/check_fixtures.py --godot /absolute/path/to/godot --out /tmp/fresh
 ```
 
 运行器在独立副本验证场景磁盘重载、资源隔离、UI 布局与合成事件、对话退路、未来存档拒绝；同时注入五种缺陷验证测试能发现错误。不是实际 Agent 使用收益测试。准备方法与独立验收边界见 [fixture 说明](evals/fixtures/README.md)。
+
+## 真实渲染与有/无技能包对照
+
+渲染命令、CI 依赖与输入范围见 [视觉夹具说明](evals/visual/README.md)。代码通过真实渲染获取 PNG，不以 headless 退出成功代替看图。
+
+[宿主对照说明](evals/HOST_TRIALS.md)提供相同初始任务的对照/安装两组、任务文本、起始提交和独立评分器。准备工具不调用模型，不替用户登录，不改变模型和推理设置。没有真实宿主轨迹时保持 `NOT_RUN`。
 
 ## 合并范围与维护
 
