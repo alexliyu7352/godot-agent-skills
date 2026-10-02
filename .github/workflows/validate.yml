@@ -53,3 +53,19 @@ jobs:
         with:
           name: godot-contract-evidence
           path: ${{ runner.temp }}/fixture-evidence
+      - name: Install CI-only display and CJK font dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri fonts-noto-cjk
+          fc-match 'Noto Sans CJK SC'
+      - name: Render Chinese UI and verify input and fault detection
+        env:
+          GODOT_SILENCE_ROOT_WARNING: '1'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a -s "-screen 0 1920x1080x24" python tools/check_visual.py --godot "$RUNNER_TEMP/godot-bin/Godot_v4.6-stable_linux.x86_64" --out "$RUNNER_TEMP/visual-evidence"
+      - name: Retain rendered images and command evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-evidence
+          path: ${{ runner.temp }}/visual-evidence
