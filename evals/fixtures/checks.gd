@@ -137,6 +137,7 @@ func on_return() -> void:
 
 func test_gui() -> void:
 	## Test layout, aliasing and GUI event dispatch; this is not pixel/OS-device QA.
+	root.size = Vector2i(640, 360)
 	var screen := Control.new()
 	screen.size = Vector2(640, 360)
 	root.add_child(screen)
@@ -169,16 +170,26 @@ func test_gui() -> void:
 	check(button.position == Vector2(12, 12), "ui/container owns expected inset")
 	button.grab_focus()
 	check(button.has_focus(), "ui/focus received")
+	# Headless has no OS mouse-enter callback. Inject into the viewport explicitly.
+	root.notify_mouse_entered()
+	var motion := InputEventMouseMotion.new()
+	motion.position = button.global_position + button.size / 2
+	motion.global_position = motion.position
+	root.push_input(motion, true)
+	await process_frame
+	check(root.gui_get_hovered_control() == button, "ui/mouse hits expected control")
 	var press := InputEventMouseButton.new()
 	press.button_index = MOUSE_BUTTON_LEFT
 	press.pressed = true
+	press.button_mask = MOUSE_BUTTON_MASK_LEFT
 	press.position = button.global_position + button.size / 2
 	press.global_position = press.position
-	Input.parse_input_event(press)
+	root.push_input(press, true)
 	await process_frame
 	var release := press.duplicate() as InputEventMouseButton
 	release.pressed = false
-	Input.parse_input_event(release)
+	release.button_mask = 0
+	root.push_input(release, true)
 	await process_frame
 	check(returned, "ui/mouse event reaches return button")
 	screen.queue_free()
