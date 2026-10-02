@@ -1,0 +1,52 @@
+{
+  "status": "static_validation_passed",
+  "version": "0.1.0-preview.1",
+  "skills": [
+    {
+      "name": "godot-code-scenes",
+      "entry_bytes": 2432,
+      "entry_lines": 28,
+      "description_characters": 224
+    },
+    {
+      "name": "godot-data-state",
+      "entry_bytes": 2339,
+      "entry_lines": 28,
+      "description_characters": 236
+    },
+    {
+      "name": "godot-debugging",
+      "entry_bytes": 2238,
+      "entry_lines": 26,
+      "description_characters": 241
+    },
+    {
+      "name": "godot-dialogue",
+      "entry_bytes": 2302,
+      "entry_lines": 28,
+      "description_characters": 218
+    },
+    {
+      "name": "godot-save-load",
+      "entry_bytes": 2417,
+      "entry_lines": 29,
+      "description_characters": 231
+    },
+    {
+      "name": "godot-ui",
+      "entry_bytes": 2232,
+      "entry_lines": 28,
+      "description_characters": 240
+    },
+    {
+      "name": "godot-verification",
+      "entry_bytes": 2521,
+      "entry_lines": 26,
+      "description_characters": 232
+    }
+  ],
+  "runtime_files": 36,
+  "evaluation_cases_defined": 35,
+  "agent_behavior_tested": false,
+  "godot_engine_tested": false
+}

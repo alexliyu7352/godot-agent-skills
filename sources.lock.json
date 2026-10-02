@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-02",
+  "upstreams": [
+    {
+      "id": "awesome-gamedev",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "d4b0e35550c55ae70bdfcab4ef5a0e94610438a9",
+      "commit_date": "2026-09-27T02:25:26Z",
+      "license": "Apache-2.0",
+      "license_path": "LICENSE",
+      "notice_path": "NOTICE"
+    },
+    {
+      "id": "godot-prompter",
+      "repository": "jame581/GodotPrompter",
+      "commit": "3e8d0f005f9604e1dbdad3de693e39555384c5af",
+      "commit_date": "2026-09-20T19:11:59Z",
+      "license": "MIT",
+      "license_path": "LICENSE"
+    },
+    {
+      "id": "godogen-fork",
+      "repository": "liangdabiao/Godogen",
+      "commit": "8f315780bf50eea1875e08c8b614930e9d6e8450",
+      "commit_date": "2026-04-15T09:48:01Z",
+      "license": "MIT",
+      "license_path": "LICENSE.md"
+    }
+  ],
+  "skills": {
+    "godot-code-scenes": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-gdscript/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-gdscript/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-nodes-scenes/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-nodes-scenes/SKILL.md"
+        },
+        {
+          "upstream": "godogen-fork",
+          "path": ".claude/skills/godogen/scene-generation.md",
+          "url": "https://github.com/liangdabiao/Godogen/blob/8f315780bf50eea1875e08c8b614930e9d6e8450/.claude/skills/godogen/scene-generation.md"
+        }
+      ],
+      "decision": "保留类型/生命周期和场景所有权检查；改正唯一名称不是目标重命名安全；不继承强制生成场景、禁止 preload 或递归展开子场景规则。"
+    },
+    "godot-data-state": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-resources/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-resources/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/save-systems/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/save-systems/SKILL.md"
+        }
+      ],
+      "decision": "保留 Resource 与存档的数据边界；加入离屏权威状态、稳定 ID 和交易/时间结算的项目适配方法；不把纯计算强制移入 Node。"
+    },
+    "godot-ui": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-ui-control/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-ui-control/SKILL.md"
+        }
+      ],
+      "decision": "保留 Container/Theme/焦点/本地化知识；补齐真实输入与视觉证据边界，限制局部修改范围。"
+    },
+    "godot-dialogue": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/dialogue-systems/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/dialogue-systems/SKILL.md"
+        }
+      ],
+      "decision": "保留图/条件/稳定文本身份；重写零有效选项、提交点重验和副作用去重契约，不复制未完整处理的运行器。"
+    },
+    "godot-save-load": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/save-systems/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/save-systems/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-resources/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-resources/SKILL.md"
+        }
+      ],
+      "decision": "保留快照、版本迁移、恢复与错误测试思路；重写 I/O、未来版本拒绝、暂存提交和降级恢复说明，不附未经引擎测试的万能 SaveManager。"
+    },
+    "godot-debugging": {
+      "inputs": [
+        {
+          "upstream": "godot-prompter",
+          "path": "skills/godot-debugging/SKILL.md",
+          "url": "https://github.com/jame581/GodotPrompter/blob/3e8d0f005f9604e1dbdad3de693e39555384c5af/skills/godot-debugging/SKILL.md"
+        }
+      ],
+      "decision": "保留远程场景树、信号诊断、Profiler 与复现方法；删除强制跨技能流程，不以 has_method 或空值返回掩盖必需接口错误。"
+    },
+    "godot-verification": {
+      "inputs": [
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/godot/godot-gdscript-headless-testing/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-gdscript-headless-testing/SKILL.md"
+        },
+        {
+          "upstream": "godot-prompter",
+          "path": "skills/godot-debugging/SKILL.md",
+          "url": "https://github.com/jame581/GodotPrompter/blob/3e8d0f005f9604e1dbdad3de693e39555384c5af/skills/godot-debugging/SKILL.md"
+        },
+        {
+          "upstream": "godogen-fork",
+          "path": ".claude/skills/godogen/scene-generation.md",
+          "url": "https://github.com/liangdabiao/Godogen/blob/8f315780bf50eea1875e08c8b614930e9d6e8450/.claude/skills/godogen/scene-generation.md"
+        }
+      ],
+      "decision": "保留明确退出、导入、日志、超时和保存重载证据；新写无网络命令包装器，不带入视觉 API/模型、发布安装器和完整编排流程。"
+    }
+  }
+}

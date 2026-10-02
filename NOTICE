@@ -1,0 +1,8 @@
+godot-agent-skills
+Copyright 2026 alexliyu7352 and contributors
+
+Curated, corrected adaptations from the three upstreams recorded in sources.lock.json.
+New integration text and Python tools are licensed under Apache-2.0.
+Original notices and MIT permissions remain in licenses/ and in each installed LICENSE.txt.
+Upstream statements in preserved notices describe their own projects, not this derivative.
+No affiliation with or endorsement by Godot, the upstream authors or agent providers is implied.

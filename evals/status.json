@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "NOT_RUN",
+  "reason": "No authenticated coding-agent runtime or independent subagent executor was available in the authoring environment.",
+  "hosts": {
+    "codex": {
+      "status": "NOT_RUN",
+      "version": null,
+      "model": null
+    },
+    "claude-code": {
+      "status": "NOT_RUN",
+      "version": null,
+      "model": null
+    }
+  },
+  "cases_defined": 35,
+  "automatic_trigger_accuracy": null,
+  "task_success_rate": null
+}

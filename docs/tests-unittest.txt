@@ -1,0 +1,87 @@
+test_exact_seven_entries (test_distribution.DistributionTests.test_exact_seven_entries)
+An extra archived/router skill must make this test fail. ... ok
+test_manifest_exists (test_distribution.DistributionTests.test_manifest_exists)
+Installation must use an explicit release allowlist, not recursive copy. ... ok
+test_sources_are_pinned (test_distribution.DistributionTests.test_sources_are_pinned)
+Upstream sources must be recoverable by a full immutable commit SHA. ... ok
+test_both_hosts_install_exactly_seven_entries (test_installer.InstallerTests.test_both_hosts_install_exactly_seven_entries)
+Only allowlisted skill entries may be published to either host. ... ok
+test_dry_run_does_not_create_host_directory (test_installer.InstallerTests.test_dry_run_does_not_create_host_directory)
+A preview must perform no project writes. ... ok
+test_local_modification_blocks_update_and_remove (test_installer.InstallerTests.test_local_modification_blocks_update_and_remove)
+Updates/removal must preserve user-edited installed content. ... ok
+test_lock_blocks_concurrent_install (test_installer.InstallerTests.test_lock_blocks_concurrent_install)
+An existing lock must not be silently stolen or deleted. ... ok
+test_missing_project_rejected (test_installer.InstallerTests.test_missing_project_rejected)
+The installer must not invent a project or install globally. ... ok
+test_no_godot_project_rejected (test_installer.InstallerTests.test_no_godot_project_rejected)
+A mistaken directory argument must be caught before writes. ... ok
+test_remove_preserves_unrelated_skills_and_configs (test_installer.InstallerTests.test_remove_preserves_unrelated_skills_and_configs)
+Uninstallation owns only this pack's files, never the whole root. ... ok
+test_second_install_is_idempotent (test_installer.InstallerTests.test_second_install_is_idempotent)
+An unchanged pack must not require a destructive force option. ... ok
+test_symlink_host_root_rejected (test_installer.InstallerTests.test_symlink_host_root_rejected)
+A project path must not redirect installation into another directory. ... ok
+test_symlink_owned_file_rejected (test_installer.InstallerTests.test_symlink_owned_file_rejected)
+Even same-content symlinks are not owned regular files. ... ok
+test_tampered_receipt_path_rejected (test_installer.InstallerTests.test_tampered_receipt_path_rejected)
+A receipt must never authorize a path outside the pack's seven roots. ... ok
+test_unmanaged_collision_blocks_all_writes (test_installer.InstallerTests.test_unmanaged_collision_blocks_all_writes)
+One conflicting directory must prevent partial installation. ... ok
+test_untracked_file_in_owned_skill_blocks_remove (test_installer.InstallerTests.test_untracked_file_in_owned_skill_blocks_remove)
+A user's added reference must not be swept away on uninstall. ... ok
+test_changed_source_without_hash_update_is_refused (test_rollback.RollbackTests.test_changed_source_without_hash_update_is_refused)
+Unreviewed source changes must not be installed even with --update. ... ok
+test_failed_fresh_install_rolls_back (test_rollback.RollbackTests.test_failed_fresh_install_rolls_back)
+Failure placing the second directory must remove the first new directory. ... ok
+test_failed_update_restores_all_original_bytes (test_rollback.RollbackTests.test_failed_update_restores_all_original_bytes)
+One failed placement must restore every previously installed file and receipt. ... ok
+test_incomplete_rollback_preserves_lock_and_backup (test_rollback.RollbackTests.test_incomplete_rollback_preserves_lock_and_backup)
+Unrecoverable I/O failure must retain backup evidence and block another writer. ... ok
+test_successful_update_requires_explicit_flag (test_rollback.RollbackTests.test_successful_update_requires_explicit_flag)
+A real managed release update differs from an unchanged repeat install. ... ok
+test_ansi_error_recognized (test_runner.RunnerTests.test_ansi_error_recognized)
+Terminal coloring must not hide the error prefix. ... ok
+test_assert_fail_stdout (test_runner.RunnerTests.test_assert_fail_stdout)
+The wrapper recognizes explicit failing assertions in stdout. ... ok
+test_existing_evidence_directory_refused (test_runner.RunnerTests.test_existing_evidence_directory_refused)
+Old logs must not be mistaken for a fresh successful verification. ... ok
+test_large_output_kept_on_disk (test_runner.RunnerTests.test_large_output_kept_on_disk)
+Logs are preserved without serializing the entire output into report JSON. ... ok
+test_literal_command_arguments_no_shell (test_runner.RunnerTests.test_literal_command_arguments_no_shell)
+Command metacharacters remain data unless the caller explicitly runs a shell. ... ok
+test_marker_in_stderr_is_accepted (test_runner.RunnerTests.test_marker_in_stderr_is_accepted)
+Both output streams are included in the completion evidence. ... ok
+test_missing_command (test_runner.RunnerTests.test_missing_command)
+An unavailable executable must produce a truthful launch error report. ... ok
+test_missing_marker_fails (test_runner.RunnerTests.test_missing_marker_fails)
+A test that exits early cannot pass only because its exit code is zero. ... ok
+test_nonzero_fails_even_with_marker (test_runner.RunnerTests.test_nonzero_fails_even_with_marker)
+A printed success string must not override a failing exit code. ... ok
+test_stderr_error_fails_even_exit_zero (test_runner.RunnerTests.test_stderr_error_fails_even_exit_zero)
+Godot-style errors on stderr must survive an otherwise successful exit. ... ok
+test_success_with_marker (test_runner.RunnerTests.test_success_with_marker)
+Exit zero and a required completion marker satisfy the command contract. ... ok
+test_timeout_records_failure (test_runner.RunnerTests.test_timeout_records_failure)
+Hung checks must terminate and cannot be reported as passing. ... ok
+test_zero_errors_is_not_error (test_runner.RunnerTests.test_zero_errors_is_not_error)
+Successful summaries containing the word errors are not false positives. ... ok
+test_added_skill_refused (test_validation.ValidationTests.test_added_skill_refused)
+A hidden legacy router cannot silently enter publication. ... ok
+test_changed_reference_refused (test_validation.ValidationTests.test_changed_reference_refused)
+Reference content changes require a reviewed manifest update. ... ok
+test_duplicate_json_key_refused (test_validation.ValidationTests.test_duplicate_json_key_refused)
+Duplicate JSON keys must not override an earlier allowlist entry. ... ok
+test_symlink_source_refused (test_validation.ValidationTests.test_symlink_source_refused)
+Even an allowlisted filename may not redirect to external content. ... ok
+test_traversal_and_normalized_paths_refused (test_validation.ValidationTests.test_traversal_and_normalized_paths_refused)
+Traversal and ambiguous path forms are rejected before normalization. ... ok
+test_valid_manifest (test_validation.ValidationTests.test_valid_manifest)
+A clean reviewed allowlist should match every installable byte. ... ok
+test_validator_command_exists_and_passes (test_validation.ValidationTests.test_validator_command_exists_and_passes)
+The public validator must actually validate the release tree. ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 24.603s
+
+OK
