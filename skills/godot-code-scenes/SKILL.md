@@ -1,13 +1,13 @@
 ---
 name: godot-code-scenes
-description: "Use when changing Godot GDScript or C# scene integration, node ownership, lifecycle, scene instantiation, resource references, or .tscn serialization. Not for UI-only styling, narrative text, or unrelated code. 适用于场景结构与脚本集成。"
+description: "Use when writing or fixing Godot .gd scripts, C# components, typed script APIs, node lifecycle, scene ownership, instantiation or .tscn serialization. Not for UI-only styling, narrative text or unrelated code. 适用于独立脚本、类型接口与场景集成。"
 license: Apache-2.0
 ---
 
 # Godot 代码与场景
 
 ## 适用边界
-处理脚本与场景协作、节点生命周期、实例化和序列化。已有明确改动时直接工作；不因调用本技能重新规划整个游戏。只改文本、Theme 或间距时不需要本技能。
+处理独立 GDScript 函数/类、C# 组件、脚本与场景协作、节点生命周期、实例化和序列化。已有明确改动时直接工作；不因调用本技能重新规划整个游戏。只改文本、Theme 或间距时不需要本技能。
 
 ## 先读什么
 查看实际受影响脚本、场景、项目入口和项目已有规范。确认工程锁定的 Godot 版本、语言、主场景、相关 Autoload 与节点契约；已有有效上下文就复用，不重复扫描仓库。项目使用 C# 就沿用对应 .NET 流程，不转换为 GDScript。

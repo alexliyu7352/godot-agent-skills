@@ -29,7 +29,11 @@ python3 scripts/run_check.py --out /tmp/godot-check-unique \
 
 报告 `command_passed` 不表示游戏完成或视觉通过。完整 stdout/stderr 保存在磁盘；JSON 只保留有限摘要。输出可能包含秘密或个人路径，分享前审查，不默认上传。
 
-超时在 POSIX 终止本次启动的进程组；Windows 只能保证直接子进程终止，不能声称完成全部子孙清理。用户中断也记录失败。脚本不负责一个主动脱离进程组的后台服务；测试命令应自包含并正常退出。
+完成条件为直接子进程退出、stdout/stderr 都读到 EOF、退出码/日志/所需完成标记满足契约。父命令退出而继承输出的工作进程仍运行时，继续在同一个超时预算内读取；不额外固定 sleep。只有包装器主线程写日志文件，迟到进程拿不到日志文件句柄。
+
+超时在 POSIX 终止本次进程组，再进行有限清理排空；Windows 只终止直接子进程。主动脱离进程组的进程可能无法清理；未关闭的管道会在清理预算后停止捕获，报告 `streams_complete=false`，不能成功。失败报告的日志是截止时刻已捕获内容，不宣称完整。
+
+EOF 不能证明重定向到其他文件的后台工作已经成功。被包装运行器必须等待它自己的所有工作并汇总失败；包装器不是作业调度器。输出/错误前缀仍是启发式，不负责修改任意进程或操作系统。
 
 官方核查：
 - https://docs.godotengine.org/en/stable/tutorials/editor/command_line_tutorial.html

@@ -28,3 +28,10 @@
 - https://docs.godotengine.org/en/stable/classes/class_packedscene.html
 - https://docs.godotengine.org/en/stable/classes/class_resourcesaver.html
 - https://docs.godotengine.org/en/stable/classes/class_resourceloader.html
+
+## 最小实现：磁盘 roundtrip，而不是只比较节点总数
+[scene_snapshot.gd](scene_snapshot.gd) 接收已经按项目设计构造好的 root，检查 pack/save 返回值，使用 CACHE_MODE_IGNORE 从磁盘读取，返回新的实例。它不擅自设置所有 owner、不自动运行、不覆盖项目场景。测试时使用隔离副本中的临时路径。
+
+自己构造的孙节点要在 add_child 后设置 owner 为本场景 root；实例化子场景只设置实例根的 owner，保留内部所有权与子场景引用。脚本导出属性和信号需要另外断言：导出的 Button 是否指向新实例的 Button，持久连接是否仍指向新接收者，关键属性是否保留。连接要序列化时使用 CONNECT_PERSIST；运行时连接仍由运行时代码管理，不能重复连接。
+
+执行与验证分开：先在一个新进程构建并写入，再在第二个进程加载并检查路径/属性/引用/信号。构建脚本成功退出不能证明这些绑定正确。仓库的 evals/fixtures 已提供相应测试；这里只引用方法，安装包不自动带入整个测试工程。

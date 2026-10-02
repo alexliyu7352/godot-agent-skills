@@ -1,0 +1,114 @@
+{
+  "engine": "4.6.stable.official.89cea1439",
+  "status": "passed",
+  "checks": [
+    {
+      "variant": "baseline",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/baseline/import"
+    },
+    {
+      "variant": "baseline",
+      "mode": "build",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/baseline/build"
+    },
+    {
+      "variant": "baseline",
+      "mode": "reload",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/baseline/reload"
+    },
+    {
+      "variant": "baseline",
+      "mode": "logic",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/baseline/logic"
+    },
+    {
+      "variant": "scene-owner",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/scene-owner/import"
+    },
+    {
+      "variant": "scene-owner",
+      "mode": "build",
+      "passed": true,
+      "expected_failure": true,
+      "evidence": "logs/scene-owner/build"
+    },
+    {
+      "variant": "resource-alias",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/resource-alias/import"
+    },
+    {
+      "variant": "resource-alias",
+      "mode": "logic",
+      "passed": true,
+      "expected_failure": true,
+      "evidence": "logs/resource-alias/logic"
+    },
+    {
+      "variant": "ui-shared-theme",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/ui-shared-theme/import"
+    },
+    {
+      "variant": "ui-shared-theme",
+      "mode": "logic",
+      "passed": true,
+      "expected_failure": true,
+      "evidence": "logs/ui-shared-theme/logic"
+    },
+    {
+      "variant": "dialogue-empty",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/dialogue-empty/import"
+    },
+    {
+      "variant": "dialogue-empty",
+      "mode": "logic",
+      "passed": true,
+      "expected_failure": true,
+      "evidence": "logs/dialogue-empty/logic"
+    },
+    {
+      "variant": "future-save",
+      "mode": "import",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/future-save/import"
+    },
+    {
+      "variant": "future-save",
+      "mode": "build",
+      "passed": true,
+      "expected_failure": false,
+      "evidence": "logs/future-save/build"
+    },
+    {
+      "variant": "future-save",
+      "mode": "reload",
+      "passed": true,
+      "expected_failure": true,
+      "evidence": "logs/future-save/reload"
+    }
+  ],
+  "agent_behavior_tested": false,
+  "visual_pixels_reviewed": false,
+  "scope": "headless Godot helper contracts, synthetic GUI events, fault detection; no game-quality proof"
+}

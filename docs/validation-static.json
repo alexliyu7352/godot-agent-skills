@@ -1,16 +1,16 @@
 {
   "status": "static_validation_passed",
-  "version": "0.1.0-preview.1",
+  "version": "0.1.0-preview.2",
   "skills": [
     {
       "name": "godot-code-scenes",
-      "entry_bytes": 2432,
+      "entry_bytes": 2487,
       "entry_lines": 28,
-      "description_characters": 224
+      "description_characters": 228
     },
     {
       "name": "godot-data-state",
-      "entry_bytes": 2339,
+      "entry_bytes": 2342,
       "entry_lines": 28,
       "description_characters": 236
     },
@@ -22,31 +22,31 @@
     },
     {
       "name": "godot-dialogue",
-      "entry_bytes": 2302,
+      "entry_bytes": 2446,
       "entry_lines": 28,
       "description_characters": 218
     },
     {
       "name": "godot-save-load",
-      "entry_bytes": 2417,
+      "entry_bytes": 2495,
       "entry_lines": 29,
       "description_characters": 231
     },
     {
       "name": "godot-ui",
-      "entry_bytes": 2232,
+      "entry_bytes": 2329,
       "entry_lines": 28,
       "description_characters": 240
     },
     {
       "name": "godot-verification",
-      "entry_bytes": 2521,
+      "entry_bytes": 2573,
       "entry_lines": 26,
-      "description_characters": 232
+      "description_characters": 266
     }
   ],
-  "runtime_files": 36,
-  "evaluation_cases_defined": 35,
+  "runtime_files": 41,
+  "evaluation_cases_defined": 38,
   "agent_behavior_tested": false,
   "godot_engine_tested": false
 }

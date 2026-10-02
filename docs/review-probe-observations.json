@@ -1,0 +1,50 @@
+{
+  "cleanup_install": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"action\": \"install\", \"destination\": \"/tmp/godot-independent-review-uoehwzqc/game/.agents/skills\", \"version\": \"0.1.0-preview.2\", \"status\": \"committed_cleanup_pending\", \"cleanup_path\": \"/tmp/godot-independent-review-uoehwzqc/game/.agents/.godot-agent-skills-stage-r0t7pium\", \"cleanup_error\": \"PermissionError: review probe: cleanup denied\"}\nReview global/plugin/ancestor skills separately; this command never disables or removes them.\n",
+    "installed_entries": 7,
+    "receipt_exists": true,
+    "lock_exists": false
+  },
+  "cleanup_uninstall": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"action\": \"uninstall\", \"destination\": \"/tmp/godot-independent-review-slfoxvkv/game/.agents/skills\", \"version\": \"0.1.0-preview.2\", \"status\": \"committed_cleanup_pending\", \"cleanup_path\": \"/tmp/godot-independent-review-slfoxvkv/game/.agents/.godot-agent-skills-stage-gd5ukfnw\", \"cleanup_error\": \"PermissionError: review probe: cleanup denied\"}\nReview global/plugin/ancestor skills separately; this command never disables or removes them.\n",
+    "installed_entries": 0,
+    "receipt_exists": false,
+    "retained_staging": 1
+  },
+  "crlf": {
+    "git_status": "",
+    "skill_crlf_lines": 0,
+    "validation_returncode": 0,
+    "validation_stderr": "",
+    "install_returncode": 0,
+    "install_stderr": ""
+  },
+  "negative_rubric": {
+    "case_id": "unrelated-python",
+    "allowed": [
+      "godot-ui"
+    ],
+    "rejected": true,
+    "accepted_case_count": null
+  },
+  "live_log_writer": {
+    "status": "timed_out",
+    "returncode": 124,
+    "error_count": 0,
+    "worker_same_group": true,
+    "worker_finished": false,
+    "recorded_stderr_bytes": 0,
+    "actual_stderr_bytes": 0,
+    "hash_still_matches": true,
+    "late_stderr": ""
+  },
+  "provenance": {
+    "unknown_upstream": "NONEXISTENT-UPSTREAM",
+    "rejected": true,
+    "validation_status": null
+  }
+}

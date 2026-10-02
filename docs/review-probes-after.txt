@@ -1,0 +1,18 @@
+test_cleanup_failure_must_not_report_install_refused_after_commit (__main__.ReviewProbes.test_cleanup_failure_must_not_report_install_refused_after_commit)
+A committed install must not be reported as an unchanged refusal. ... ok
+test_cleanup_failure_must_not_report_uninstall_refused_after_removal (__main__.ReviewProbes.test_cleanup_failure_must_not_report_uninstall_refused_after_removal)
+A completed removal must be distinguishable from a refusal to remove. ... ok
+test_git_crlf_checkout_still_installs (__main__.ReviewProbes.test_git_crlf_checkout_still_installs)
+A clean checkout with normal CRLF conversion must remain installable. ... ok
+test_negative_case_cannot_allow_pack_skill (__main__.ReviewProbes.test_negative_case_cannot_allow_pack_skill)
+Negative discovery cases must actually forbid all pack skill calls. ... ok
+test_successful_report_must_not_leave_live_log_writers (__main__.ReviewProbes.test_successful_report_must_not_leave_live_log_writers)
+A still-running member of the same process group can invalidate evidence. ... ok
+test_unknown_upstream_reference_rejected (__main__.ReviewProbes.test_unknown_upstream_reference_rejected)
+A provenance entry must resolve to an upstream actually in the source lock. ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 14.244s
+
+OK
+Observations saved to /mnt/data/godot-skills-revision-evidence/probe-observations.json

@@ -31,3 +31,26 @@ Resource 按路径缓存时可能共享引用。修改共享模板会影响实�
 - https://docs.godotengine.org/en/stable/classes/class_node.html
 - https://docs.godotengine.org/en/stable/classes/class_resource.html
 - https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/static_typing.html
+
+## 独立脚本与异步生命周期的具体写法
+小型纯规则函数沿用现有类型与数值契约；不为函数创建场景节点。不确定动态资源类型时 `var scene := load(path) as PackedScene` 并检查必需资源，不用猜测 API。`@onready var button: Button = %Button` 只适用于对应场景的唯一名称；独立纯脚本不要强行添加节点引用。
+
+```gdscript
+var _generation: int = 0
+
+func invalidate_request() -> void:
+    ## 关闭窗口或切换数据时使旧请求失效，即使窗口实例没有被释放。
+    _generation += 1
+
+func refresh_after_delay() -> void:
+    ## 有效性与世代都通过才接受结果；销毁自身的情况沿用项目取消策略。
+    _generation += 1
+    var expected := _generation
+    var target := get_node_or_null("ResultLabel") as Label
+    await get_tree().create_timer(0.2).timeout
+    if expected != _generation or not is_instance_valid(target):
+        return
+    target.text = "已刷新"
+```
+
+上述片段需要放入实际 Node/Control 脚本，不是独立可执行程序。它展示旧结果保护，不声称取消了底层 I/O；也不要在无异步行为的任务中引入请求世代。

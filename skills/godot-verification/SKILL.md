@@ -1,6 +1,6 @@
 ---
 name: godot-verification
-description: "Use when choosing or repairing Godot test/validation commands, diagnosing false-green checks, evaluating change evidence, or validating cross-system and player-visible behavior. Not automatically for every small edit. 适用于测试误通过与验收证据。"
+description: "Use when repairing Godot test commands, investigating false-green results, explicitly auditing delivery evidence, or validating changes that cross persistence, world-time and shared state contracts. Routine local UI checks belong to godot-ui. 适用于假通过、明确证据审查和高风险跨系统验收。"
 license: Apache-2.0
 ---
 

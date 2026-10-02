@@ -30,3 +30,13 @@ Codex 的项目路径为 `.agents/skills`；Claude Code 为 `.claude/skills`。�
 - https://agentskills.io/specification
 - https://developers.openai.com/codex/skills/
 - https://code.claude.com/docs/en/skills
+
+## preview.2：操作结果和清理状态
+安装器的首行 JSON 区分 `committed`、`unchanged`、`committed_cleanup_pending`。
+后者表示安装/更新/卸载已经完成，退出码为 0，但暂存清理未完成；JSON 给出残留路径和错误。不要当作“没有修改”重试，也不要对残留路径运行未经检查的递归删除。
+
+事务失败但恢复成功时 stderr 返回 `rolled_back`、退出码 2；可能还有仅待清理的路径。
+预检拒绝为 `refused_before_change`，目标未改；回滚不完整仍为退出码 3，保留锁与备份。
+锁文件自身清理失败会明确输出 `LOCK CLEANUP PENDING`，不伪装为操作未发生。
+
+`.gitattributes` 固定发布文本 LF，避免 core.autocrlf 的正常转换导致清单误报。无需改用户全局 Git 配置或重新计算第三方下载内容的哈希。

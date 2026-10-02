@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
   "id": "godot-agent-skills",
-  "version": "0.1.0-review-engine-probe",
+  "version": "0.1.0-preview.2",
   "skills": {
     "godot-code-scenes": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "70542584457aefc2e8ad7cadfbd0e12d23d85d33ad140c9c91fff2fb6ad95b0a",
-        "references/lifecycle.md": "25fc4f2d80d84d949028f0c11a8963b2b5736bc64ec0ca5f3369d901749356ae",
-        "references/scene-roundtrip.md": "a20dc0161130eb1c68ade18093adb41a06847eddc79f39ddf55b2632bafaf745",
-        "references/sources.md": "718949fd7a84fb3b2a0272790fdb26de3191ffe7041ed87a99f196e1f73db87e",
+        "SKILL.md": "de03f264d6acd9dd084286b9c37394a42164680a8698df8416a9b34a8c9a3073",
+        "references/lifecycle.md": "6f9fcf972e8d9e3342abb5f1ecd1714f19f27635aa3f7db3649c91a94eb3ad97",
+        "references/scene-roundtrip.md": "bb98a92f0c9aff8ff12514ff115ed64c72d545272fca039f108497e5d3efa0c7",
+        "references/sources.md": "832ec9908ec41f5f6537f774bcb53f774518821bdee3ed23250a6f227de70cfa",
         "references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd"
       }
     },
     "godot-data-state": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "dd43227d1ed8b219ba7783b20ea085623934faaa2ec8b4921814e554aa22fe51",
-        "references/sources.md": "2b6125be4460e6c2f7ab9d6c9a3bcf0cc164b321e7b60d248ee7cf8ed0bfb963",
-        "references/state-ownership.md": "f1ed066d12cb915693f2a1bd2783f1c3567bd5c0bbd5aee9ca9928d954d6dcce",
+        "SKILL.md": "857c871b407b7af4262b22382c820bbe8427c374365ceb1ead1c9f65ab4c58f4",
+        "references/sources.md": "ec9928b773beb1a06b9d6923d355c1bd4243112ac675a77e638d1fd2de820fea",
+        "references/state-ownership.md": "8ec6a5dc0851bdd889937eeea8b4d92e235c6207db27a0642709c442614662cb",
         "references/transactions-time.md": "a8d4e78901d78d4231cd50856463dfe7169fcfcab71f29054d5e733913d8ee55",
         "references/runtime_state.gd": "9c10f61246d16f1acafa37471e0dd043135b26021f1f9f8eb7dca189c3d44842"
       }
@@ -35,19 +35,19 @@
     "godot-dialogue": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "5f28288d5fbb0092450f698b5adf268787c57ad4e6dc748f45010db5c8480551",
+        "SKILL.md": "bf4bf691b004eff5fd12735719a573c5be51c3b11ca7af19d58b16ce9445b260",
         "references/content-validation.md": "53a11fe8db8950eb843e72d6d18041b5db41b1d2b71228641976721c9108af1d",
-        "references/dialogue-contract.md": "1669ec4eecb9344efd0822cb98e1e581a151c95bea305e2f2670c9bbc28ea48c",
-        "references/sources.md": "6892f14f8e9423f7628c0940e3cfea03f4c84257372a3c34ee5569968736c81b",
+        "references/dialogue-contract.md": "3838d65f1762c597b8fe85cbfc0cd194be47e28a0c9aeb8540db6653f6b4e9d6",
+        "references/sources.md": "c7321720eb73f21eecc011d5e14c2c95fbf2ff0833c0b8f0576064ad0d8bc837",
         "references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12"
       }
     },
     "godot-save-load": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "82892a7b4430caa46afabfe22dab65b7091fb3fe36677f9acbe4fc297f09fafd",
-        "references/load-migration.md": "ac0e5198ec2f41f39c989c481b2171f397fa9741fa365983fd8d03df96f15fba",
-        "references/sources.md": "c558c5b8a8279fed99414c2ca01853f8a91f717498666a67a959a21fbfc94612",
+        "SKILL.md": "54eb32d6ca5a906dc285acfffd43281b981eedd008172596046cdd34a20566e0",
+        "references/load-migration.md": "35f740e950decd5b3d5a461ebdf31727c37f06c26917bfa7246f2f62d185ebc8",
+        "references/sources.md": "831f97c5e687df231bb8e1ed57912bf22a82222210c1e37d8072fb54f908a537",
         "references/write-recovery.md": "5d4d2b420d7f9f8db39b4a504211c8dffe58fdd60086237bec6e5f74a91843f1",
         "references/save_envelope.gd": "f9ec3cb67cf639a4ede5d211c8a92a9fed70d6e5f6988f88476834b29d091f9f"
       }
@@ -55,18 +55,18 @@
     "godot-ui": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "03d22439cd6a69425b135a2837b4164ce9bcf96bce218a75453b45f21a4fe442",
+        "SKILL.md": "1bee32add7e508c72386546c0d0666ce94841d06063a81cec4a2979feccc8ece",
         "references/input-visual.md": "0330e536a30c760d1420c5582d4711fa9c6d92fc238f68d1f6072bdf9f85d53d",
-        "references/layout-localization.md": "c9370de83d439ed67341f97db84fa53079f5a4c18dc07ecda1838f0a49aac86b",
-        "references/sources.md": "7455dab55d776c9750af249a43c2e26b240aab43789315d2573f7d0cefe3ed6e",
+        "references/layout-localization.md": "555959ca8bbaf5b65dd5fb0eed0f0ca5df965057f69b233354c9b8f4ce81d51d",
+        "references/sources.md": "dfb5d2b65ebd5be6cbfff2540ccf16809ea0f8847220c81535ae06ec9b18c33f",
         "references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559"
       }
     },
     "godot-verification": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "55ddc5874715e9e4d2417738bc6571f83888ac595ab5f239b01cba7435d1a1ce",
-        "references/commands.md": "993fda65dc09e16fb18087be631ca2c8057d5381fce4e6c9fad7be593efcbe48",
+        "SKILL.md": "750e038ae09b154d16d57c2b5ca940c73053b8a20da1143c8f39bf4a7ecee643",
+        "references/commands.md": "792e79d0ee5e3652eb7bd564fa57a1a876cc259a1584d02d1c648b2f2d65105b",
         "references/coverage.md": "6d1bbb0f9620d07a0ee8b15f04434f953ae7d14ff459c2494dd5140aa380c30c",
         "references/sources.md": "e274f1d09b2ee1c2febd57edea1c5e7752d1877dec2006a92cc90565e4dbbc71",
         "scripts/run_check.py": "2d5c3adf2ab338720e310602802ebaf315c921ff0a737f63c645fb9869bd1dd6"

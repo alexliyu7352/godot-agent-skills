@@ -1,0 +1,25 @@
+{
+  "ci_run_id": 37060512022,
+  "ci_head": "1af8d6bd3f9bffdf0d66cf9589eee6d4ae812002",
+  "branch": "test/review-godot-contracts",
+  "run_url": "https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37060512022",
+  "artifact_id": 11250505459,
+  "artifact_sha256": "4e592062d3d42c3d4a1fb5afc8c7cf04881d9c266c9545c631bf5927a2d735fe",
+  "scope": "Exact helper and fixture bytes checked against CI artifact; not full preview.2 remote release",
+  "matched_files": {
+    "skills/godot-code-scenes/references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd",
+    "skills/godot-data-state/references/runtime_state.gd": "9c10f61246d16f1acafa37471e0dd043135b26021f1f9f8eb7dca189c3d44842",
+    "skills/godot-ui/references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559",
+    "skills/godot-dialogue/references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12",
+    "skills/godot-save-load/references/save_envelope.gd": "f9ec3cb67cf639a4ede5d211c8a92a9fed70d6e5f6988f88476834b29d091f9f",
+    "evals/fixtures/checks.gd": "dfefcba60fd34fa5e1ddd1201e263452310ee284e81c1d67789c049603e55275",
+    "evals/fixtures/actor.gd": "46b9aef1954a7cdae07bf8058c24d68202aece5d03a2e561317cce0a53be5bba",
+    "evals/fixtures/project.godot": "c7548d7500c44b02f95e42935bd052861f50edaf67e950104e812a9b0ec90b5c"
+  },
+  "first_failed_run_id": 37060055103,
+  "first_failed_artifact_sha256": "598f95e8ff913ebf3b684fde6338589fb178de95f1988b790e85fea8984ed2f6",
+  "gui_injection": "Viewport.notify_mouse_entered + push_input(motion/button, in_local_coords=true)",
+  "baseline_assertions": 38,
+  "mutation_variants": 5,
+  "process_checks_including_import": 15
+}

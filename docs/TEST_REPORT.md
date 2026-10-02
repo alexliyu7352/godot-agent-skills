@@ -1,41 +1,54 @@
-# 验证报告 — 0.1.0-preview.1
+# 验证报告 — 0.1.0-preview.2
 
-## 已执行
+## 已执行：Python 工具与分发回归
 
-验证时间（UTC）：2026-10-02T16:34:54.916697+00:00 至 2026-10-02T16:35:20.056712+00:00。
-环境：Linux，Python 3.13.5；没有下载第三方 Python 依赖。
+Linux / 系统 Python 3.13.5，非 root（UID 1000），命令 `PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest discover -s tests -v`。
+**52 项测试通过，0 失败，退出码 0**。完整输出见 [日志](tests-unittest.txt) 和 [环境记录](test-environment.json)。
+`python3 tools/validate.py` 通过，结果见 [静态报告](validation-static.json)。
 
-完整命令：`PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v`。
-结果：**41 项测试通过，0 失败，退出码 0**。实际输出见 [完整日志](tests-unittest.txt)，环境见 [运行元数据](test-environment.json)。
+原始 41 项保留，新增 11 项方法（内部包含多个故障子案例）：真实 Git `core.autocrlf=true` 克隆、提交后 install/update/uninstall 清理失败、回滚后的清理失败、正常父退出但仍有输出写入者、未关闭/逃逸写入者超时、负例/来源校验、fixture 准备边界及元数据静态防退化。
+这些测试不以字符串匹配结果冒充真实模型的触发行为。
 
-| 测试组 | 数量 | 实际覆盖 |
-|---|---:|---|
-| 发布边界 | 3 | 七个入口、发布清单、完整提交锁定 |
-| 安装生命周期 | 13 | 两宿主目标、预览无写入、重复安装、冲突、编辑/新增文件保护、卸载保留其他内容、链接/收据路径、锁 |
-| 安装回滚 | 5 | 显式更新、首次安装中断、更新中断恢复原字节、回滚失败保留锁和备份、未审阅源内容拒绝 |
-| 命令证据 | 13 | 真实 Python 子进程、非零退出、stderr/stdout 错误、ANSI、完成标记、超时、旧目录拒绝、缺命令、大输出 |
-| 校验器负例 | 7 | 新增不在清单的技能、参考内容变化、路径穿越、重复 JSON 键、源链接、真实校验命令 |
+额外运行说明：托管 Python 工具的 `/opt/pyvenv` 非 root 环境，在解释器启动时自动预热表格运行时并报 `hydrateCrdtFromProto` / daemon 错误，导致 8 个检查受到启动超时或附加输出影响。该次失败完整保存在交付证据包 `tool-runtime-startup-failure.txt`，没有冒充通过。随后使用不带该预热钩子的系统解释器，在同一份源码、同一非 root 用户下重跑完整 52 项，全部通过；没有修改测试断言或延长产品超时。另有 root 环境 52 项通过的完整日志。
 
-静态校验命令：`python3 tools/validate.py`。
-结果：**通过**。核对 7 个技能、36 个可安装文件、局部引用、来源、元数据大小、Python 具名对象注释，以及 35 个行为评估案例的结构。详见 [机器报告](validation-static.json)。
+## 原审查反例复测
 
-回滚测试实际捕获过“回滚也失败时释放合作锁”的缺陷；修复后对应用例通过。初始测试先于工具实现，后续对负例做故障注入，不以无操作测试代替真实目录/子进程操作。
+原复现脚本未改判定，六个反例在旧版失败后，于修订版 **6/6 通过**。见 [原探针输出](review-probes-after.txt) 和 [实际观察值](review-probe-observations.json)。这六项不是把同一测试换名称计入 52 项，而是独立复核。
 
-## 未执行，不能从上述结果推导
+## Godot 工程验证
 
-| 项目 | 状态 | 缺失条件 |
-|---|---|---|
-| Codex 自动触发、参考选择、跨回合表现 | NOT_RUN | 本环境没有可用的已认证 Codex 运行器 |
-| Claude Code 自动触发、参考选择 | NOT_RUN | 本环境没有可用的已认证 Claude Code 运行器 |
-| 35 个语义/行为案例 | NOT_RUN | 有定义和判据，没有真实宿主轨迹 |
-| Godot 引擎脚本/场景运行 | NOT_RUN | 本环境没有可用 Godot 可执行文件 |
-| 用户游戏集成和真实输入 | NOT_RUN | 没有修改/执行用户游戏项目 |
-| 截图/动画/中文 UI 视觉验收 | NOT_RUN | 未运行游戏渲染与实际观察 |
-| Windows/macOS 工具运行 | NOT_RUN | 本轮仅 Linux 执行 |
-| GitHub Actions | NOT_RUN | workflow 已准备，未创建/推送远端仓库 |
+已加入五份可执行参考、独立工程和故障注入。GitHub CI 使用官方 Godot 4.6-stable；这不会改变使用者游戏的引擎版本。
+**已实际运行通过**：官方 `4.6.stable.official.89cea1439`，Linux GitHub Actions，运行 [37060512022](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37060512022)，测试分支提交 `1af8d6bd3f9bffdf0d66cf9589eee6d4ae812002`。
 
-Python 脚本设计使用 3.10+ 标准库，但本轮实际仅验证上述 Python 版本。命令证据脚本不是沙箱；错误匹配是启发式，不是所有测试协议的解析器。安装器支持常规异常回滚，不承诺断电或恶意并发环境下的原子事务。
+共 **15 个进程检查步骤通过**（含导入），正确基线的 build/reload/logic 分别执行 **7 / 15 / 16 条断言**且失败数为零；五种定点缺陷各自被期望断言抓住。首轮运行 37060055103 的 GUI 注入失败记录保留，随后补全 viewport 输入注入而没有删除断言或直接调用按钮回调。
 
-## 版本判断
+这是独立测试分支，不是完整 preview.2 的远端发布。已下载 CI artifact，核对五个参考实现及三个 fixture 文件与完整本地候选逐字节一致，并校验所有日志的大小与 SHA-256。记录见 [引擎摘要](engine-summary.json)、[来源和字节比对](engine-evidence.json)。同一分支两个 Python 作业仍运行旧 41 项测试并通过；本地完整修订的 52 项结果不能当作远端 52 项。
 
-交付为可安装的 **preview**，不是只含目录的占位项目，也不是已经验证所有宿主的正式稳定版。允许开始隔离试用；无法诚实声称零误触发、提升多少效率或保证游戏质量。完成宿主与工程试用后，再据可核查证据调整触发条件并升级版本。
+GUI 输入由 `Viewport.push_input()` 经过 Control 分发，包含 hover、focus、click 断言。没有操作系统窗口输入或图像判断，因此不称为完整视觉/玩家体验验收。
+
+基线覆盖磁盘保存/跨进程重载的导出引用和持久信号、嵌套运行数据隔离、局部 Theme 与 Container 布局、GUI 合成鼠标事件、零选项退路、未来版本存档拒绝及不修改原件。
+五种变异必须被对应断言抓住；仅语法错误、超时或任意非零码不算抓住目标缺陷。
+
+## 明确未执行
+
+| 范围 | 状态 |
+|---|---|
+| Codex / Claude Code 自动触发、参考读取、任务收益 | NOT_RUN：没有已认证的可用运行器，远程设备离线 |
+| 38 个真实 Agent 案例 | 已定义，NOT_RUN；有/无本包对照尚无轨迹 |
+| 用户游戏集成 | NOT_RUN；没有修改或运行用户游戏 |
+| 真实渲染截图、动画、OS 设备输入和体验评估 | NOT_RUN；headless GUI 分发不是视觉验收 |
+| Windows/macOS 实机 | NOT_RUN；Git 换行在 Linux 真实克隆中验证 |
+
+## 边界
+
+命令包装器不是沙箱；同时等待直接进程退出及双输出 EOF，不能证明主动重定向/脱离的工作完成。超时后的清理/排空有有限宽限，未完整捕获不能通过。
+安装器保留常规异常回滚，不承诺断电或恶意并发环境下原子事务。成功但清理待处理明确返回 `committed_cleanup_pending`。
+本版仍为 preview，不宣称零误触发、提升效率比例或保证游戏质量。逐项修订见 [审查修复](REVIEW_FIXES.md)。
+
+## 发布状态
+
+完整 preview.2 的 GitHub 发布受阻：工具在写入 `tools/validate.py` 时连续返回无法确定请求安全状态，已停止该写入，没有改用其他接口绕过。
+
+`main` 保持审查基线 `c3b29e54abe930fd10abd8d15389e4b58d5e6a1e`。独立分支 `test/review-godot-contracts` 仅用于上述引擎验证，README 明确禁止把它作为完整版本安装或合并；它不包含全部技能文档、校验器和回归修订。
+
+本地源码 ZIP/Git bundle/补丁包含完整 preview.2。工具限制不是仓库授权缺失，也不是让用户再次授权；当前只是不将不完整版本冒充发布成功。

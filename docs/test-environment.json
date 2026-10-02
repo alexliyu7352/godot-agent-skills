@@ -1,10 +1,11 @@
 {
-  "run_started_utc": "2026-10-02T16:34:54.916697+00:00",
-  "run_finished_utc": "2026-10-02T16:35:20.056712+00:00",
+  "verified_at_utc": "2026-10-02T20:34:50.830276+00:00",
   "python": "3.13.5",
+  "interpreter": "/usr/bin/python3",
+  "uid": 1000,
   "platform": "Linux",
   "command": [
-    "python3",
+    "/usr/bin/python3",
     "-m",
     "unittest",
     "discover",
@@ -13,5 +14,8 @@
     "-v"
   ],
   "exit_code": 0,
-  "scope": "Python tools, static pack checks, real subprocesses and temporary filesystem fixtures; NOT agent/Godot/game evaluation"
+  "tests": 52,
+  "reported_seconds": 4.943,
+  "scope": "Python tools, actual subprocesses and temporary filesystem/Git fixtures; NOT coding-agent or game evaluation",
+  "other_environment": "Embedded /opt/pyvenv interpreter under uid 1000 failed 8 checks due spreadsheet-runtime startup errors/timeout; full failure log retained, not claimed passing."
 }
