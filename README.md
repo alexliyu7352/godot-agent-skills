@@ -2,9 +2,11 @@
 
 面向**已经在开发中的 Godot 4 游戏**，尤其是长期策略／角色扮演项目。它是七个按任务使用的领域技能，不是游戏内 AI，也不是新的项目总控或游戏生成器。
 
-**版本：0.1.0-preview.2。** 已实现技能、参考资料、来源记录、安装器与离线检查。真实 Codex/Claude 自动触发与游戏视觉效果尚未验证；Godot 4.6 示例/反例已在独立 CI 分支验证通过（不是全包已发布），参见 [验证报告](docs/TEST_REPORT.md)；不要把静态检查通过理解为已保证游戏质量。
+**版本：0.1.0-preview.2，完整修订已保存到 GitHub `main`。** 七个技能、参考实现、工具、52 项回归测试及来源记录均已发布，不再依赖会话下载包。完整恢复提交为 [0804e62](https://github.com/alexliyu7352/godot-agent-skills/commit/0804e625518516a1436c62d36654823b5054af31)，目录树与原始交付包逐字节一致。
 
-**发布状态：此完整修订包尚未合入 GitHub main。** GitHub 工具写入校验器时受阻；远端 `test/review-godot-contracts` 只是验证分支，不是完整安装版本。详见验证报告。
+**完整版本 CI 已通过**：[运行 37064506770](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37064506770) 中 Python 3.11 / 3.13 各通过 52 项测试，Godot 4.6 的 15 个检查步骤符合预期（含五种定点故障检测）。后续提交状态以 [main 分支 CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 为准。
+
+真实 Codex/Claude 自动触发、38 个 Agent 行为案例和游戏视觉效果仍未验证；不要把 CI 通过理解为已经保证游戏质量。参见 [验证报告](docs/TEST_REPORT.md) 和 [发布记录](docs/PUBLISH.md)。旧的 `test/review-godot-contracts` 只保留为历史测试分支，不作为安装入口。
 
 ## 七个入口
 

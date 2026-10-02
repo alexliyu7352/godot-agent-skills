@@ -1,6 +1,21 @@
 # 验证报告 — 0.1.0-preview.2
 
-## 已执行：Python 工具与分发回归
+## 新增：完整版本的 GitHub CI（2026-10-02）
+
+完整恢复提交 `0804e625518516a1436c62d36654823b5054af31` 已保存并推进 main，目录树 `36a82209ed451779ea4857f18f369f8319ed7ffb` 与 87 文件恢复包一致。
+[完整版本运行 37064506770](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37064506770) 的三个作业全部成功，已读取实际日志：
+
+| 作业 | 结果 |
+|---|---|
+| Python 3.11.16 | 静态校验通过；52 项测试通过，5.140 秒 |
+| Python 3.13.15 | 静态校验通过；52 项测试通过，5.592 秒 |
+| Godot 4.6 | 正确基线与五个故障变体共 15 步符合预期；证据 artifact 11251811790 |
+
+这次运行针对完整版本，不再把早期测试分支的 41 项当成完整 52 项。CI 保留 Node.js action 运行时弃用警告；该警告没有导致作业失败，也没有被隐藏。后续文档提交的状态以 [main CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 为准。
+
+下面的本地测试、初次引擎验证及对应 JSON / 文本日志是先前实测快照，保留原时间、环境与范围，不改写成新一次运行。真实 Agent / 视觉状态不因这次 CI 变成通过。
+
+## 原始实测：Python 工具与分发回归
 
 Linux / 系统 Python 3.13.5，非 root（UID 1000），命令 `PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -m unittest discover -s tests -v`。
 **52 项测试通过，0 失败，退出码 0**。完整输出见 [日志](tests-unittest.txt) 和 [环境记录](test-environment.json)。
@@ -15,7 +30,7 @@ Linux / 系统 Python 3.13.5，非 root（UID 1000），命令 `PYTHONDONTWRITEB
 
 原复现脚本未改判定，六个反例在旧版失败后，于修订版 **6/6 通过**。见 [原探针输出](review-probes-after.txt) 和 [实际观察值](review-probe-observations.json)。这六项不是把同一测试换名称计入 52 项，而是独立复核。
 
-## Godot 工程验证
+## 原始实测：独立测试分支的 Godot 工程验证
 
 已加入五份可执行参考、独立工程和故障注入。GitHub CI 使用官方 Godot 4.6-stable；这不会改变使用者游戏的引擎版本。
 **已实际运行通过**：官方 `4.6.stable.official.89cea1439`，Linux GitHub Actions，运行 [37060512022](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37060512022)，测试分支提交 `1af8d6bd3f9bffdf0d66cf9589eee6d4ae812002`。
@@ -47,8 +62,4 @@ GUI 输入由 `Viewport.push_input()` 经过 Control 分发，包含 hover、foc
 
 ## 发布状态
 
-完整 preview.2 的 GitHub 发布受阻：工具在写入 `tools/validate.py` 时连续返回无法确定请求安全状态，已停止该写入，没有改用其他接口绕过。
-
-`main` 保持审查基线 `c3b29e54abe930fd10abd8d15389e4b58d5e6a1e`。独立分支 `test/review-godot-contracts` 仅用于上述引擎验证，README 明确禁止把它作为完整版本安装或合并；它不包含全部技能文档、校验器和回归修订。
-
-本地源码 ZIP/Git bundle/补丁包含完整 preview.2。工具限制不是仓库授权缺失，也不是让用户再次授权；当前只是不将不完整版本冒充发布成功。
+此前校验器写入受阻、仅有局部测试分支的状态已解除。完整恢复提交与完整 CI 见本报告开头，[发布说明](PUBLISH.md) 保留失败及恢复经过。下载包不再是唯一保存位置；原独立测试分支仍不是完整安装入口。

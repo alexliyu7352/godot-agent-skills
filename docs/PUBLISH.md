@@ -1,23 +1,35 @@
 # 发布状态与恢复
 
-仓库 `alexliyu7352/godot-agent-skills` 已由用户创建并公开。preview.1 已发布到 main，基线提交 `c3b29e54abe930fd10abd8d15389e4b58d5e6a1e`，目录树 `19075fca180f41b1493862446908300d9577121b`。无需再次创建仓库或重新提供凭据。
+## 当前状态：完整 preview.2 已保存到 GitHub
 
-## 本次 preview.2
+2026-10-02，完整版本已正常写入 `alexliyu7352/godot-agent-skills`，并在完整分支 CI 通过后，以非强制快进方式推进 `main`。不再只保存在会话 ZIP / bundle 中；未改动其他仓库或用户游戏。
 
-完整修订保存在源码 ZIP、Git bundle 和补丁中。GitHub 工具对 `tools/validate.py` 写入连续返回无法确定安全状态，因此本次未发布完整版本，未改变 main；没有通过另一个接口或编码上传来绕过。
+- 完整恢复提交：[0804e625518516a1436c62d36654823b5054af31](https://github.com/alexliyu7352/godot-agent-skills/commit/0804e625518516a1436c62d36654823b5054af31)。
+- 完整目录树：`36a82209ed451779ea4857f18f369f8319ed7ffb`，87 个文件，与原始 preview.2 恢复包一致。
+- 完整版本验证：[37064506770](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37064506770)，Python 3.11 与 3.13 各 52 项通过，Godot 合同/故障检测 15 步符合预期。
+- 发布说明修订仅更新文档，后续结果见 [main CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain)。
 
-`test/review-godot-contracts` 是独立引擎验证分支，只包含能够正常写入的示例、夹具和相关工具。它的 README 明确标识非完整版本。不得因为它的 CI 通过，就把它合入 main 或当作精简包安装。
-
-## 恢复完整本地成果
-
-源码 ZIP 不含 .git，可解压到独立目录运行验证。Git bundle 包含历史和完整修订分支，可用：
+## 获取与更新
 
 ```bash
-git clone /absolute/path/to/godot-agent-skills-0.1.0-preview.2.bundle recovered-skills
+git clone https://github.com/alexliyu7352/godot-agent-skills.git
+cd godot-agent-skills
+python3 tools/validate.py
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 ```
 
-bundle 的 origin 是本地文件，不是 GitHub。其 preview.1 基线来自制作时的本地提交，和 GitHub preview.1 的提交 ID 不同，但目录树完全一致；不要为使历史一致强推覆盖远端。
+已有工作副本先检查未提交修改，再使用 `git pull --ff-only`；不要用强制重置覆盖本地内容。具体项目安装与受管更新见 [安装说明](INSTALL.md)。
 
-另附补丁以与远端基线完全一致的目录树生成，可在基线的干净工作副本中审核和检查适用性。它不是自动发布脚本。将来的正式发布需要正常授权写入、复核远端状态、重新运行相应检查，并保留历史；本次没有声称该步骤已完成。
+## 保留的发布历史
 
-所有交付物只包含 Skills、工具、测试和非敏感证据，不包含用户游戏或账户凭据。SHA-256 用于传输完整性，不是数字签名。测试与证据范围见 [验证报告](TEST_REPORT.md)。
+preview.1 基线为 `c3b29e54abe930fd10abd8d15389e4b58d5e6a1e`。首次发布 preview.2 时，GitHub 工具写入校验器受阻，所以只创建了明确标记的 `test/review-godot-contracts` 分支；该历史分支并非完整产品版本。
+
+首次引擎运行 [37060055103](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37060055103) 因鼠标事件未到达按钮而失败，之后通过 Viewport 事件注入修正，在 [37060512022](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37060512022) 通过。没有删除断言、跳过失败测试或抹除历史红灯。
+
+本次在用户继续要求发布后，正常的校验器写入成功。随后补齐所有文件、核对目录树、运行完整版本 CI 并推进 main；原工具阻塞已经解除，不需要重新授权。
+
+## 本地恢复包仍可用于灾备
+
+原 bundle 提交 `e8d8bfb04982b869bb943e94737dd950f17c46dc` 与 GitHub 恢复提交的目录树相同，但提交历史不同。它只是原始快照备份；之后发布说明等变更以 GitHub 为准。不要为匹配本地 bundle 的提交 ID 强推覆盖远端。
+
+所有发布文件为技能、工具、测试、来源与非敏感证据；未上传账户凭据或游戏源码。真实宿主触发/视觉验证仍为 NOT_RUN，详见 [验证报告](TEST_REPORT.md)。
