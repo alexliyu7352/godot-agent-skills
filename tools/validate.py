@@ -63,8 +63,26 @@ def check_docstrings(path: Path) -> None:
             raise ValueError(f'missing docstring: {path}:{node.lineno} {node.name}')
 
 
+def nonempty_text(value, label: str) -> str:
+    """Reject non-string and blank schema values with a useful field label."""
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'{label} must be a nonblank string')
+    return value
+
+
+def text_list(value, label: str, *, nonempty: bool = True) -> list[str]:
+    """Validate list element types without accepting a string as an iterable."""
+    if not isinstance(value, list) or (nonempty and not value):
+        raise ValueError(f'{label} must be a list of nonblank strings')
+    for item in value:
+        nonempty_text(item, label)
+    if len(value) != len(set(value)):
+        raise ValueError(f'{label} contains duplicate values')
+    return value
+
+
 def check_cases(path: Path) -> int:
-    """Check evaluation definitions, without pretending to execute their prompts."""
+    """Validate positive/negative contracts; this does not execute any prompt."""
     ids = set()
     positive_coverage = set()
     negative_count = 0
@@ -72,24 +90,82 @@ def check_cases(path: Path) -> int:
         if not line.strip():
             continue
         case = json.loads(line)
-        if not isinstance(case['prompt'], str) or not case['prompt'] or case['id'] in ids:
-            raise ValueError(f'invalid case or duplicate ID on line {number}')
-        ids.add(case['id'])
-        allowed = set(case['allowed_pack_skills'])
-        primary = set(case['expected_primary_any'])
+        if not isinstance(case, dict):
+            raise ValueError(f'case on line {number} must be an object')
+        case_id = nonempty_text(case.get('id'), 'case ID')
+        nonempty_text(case.get('prompt'), 'prompt')
+        if case_id in ids:
+            raise ValueError(f'duplicate case ID: {case_id}')
+        ids.add(case_id)
+        if case.get('kind') not in ('positive', 'negative'):
+            raise ValueError(f'unknown case kind: {case_id}')
+        allowed = set(text_list(case.get('allowed_pack_skills'), 'allowed skills', nonempty=False))
+        primary = set(text_list(case.get('expected_primary_any'), 'primary skills', nonempty=False))
         if not primary <= allowed <= SKILLS:
-            raise ValueError(f'unknown/contradictory skill sets in {case["id"]}')
-        if not isinstance(case['checks'], list) or not case['checks']:
-            raise ValueError(f'missing behavioral rubric in {case["id"]}')
+            raise ValueError(f'unknown/contradictory skill sets in {case_id}')
+        text_list(case.get('checks'), 'checks')
         if case['kind'] == 'negative':
             negative_count += 1
-            if primary:
-                raise ValueError('negative case cannot require a pack skill')
+            if primary or allowed:
+                raise ValueError('negative case must forbid all pack skills')
         else:
+            if not primary:
+                raise ValueError(f'positive case needs a primary candidate: {case_id}')
             positive_coverage |= primary
     if positive_coverage != SKILLS or negative_count < 4:
-        raise ValueError('evaluation cases must cover all seven skills and at least four negatives')
+        raise ValueError('cases must cover all seven skills and at least four negatives')
     return len(ids)
+
+
+def check_sources(sources: dict) -> None:
+    """Check pinned provenance references offline; do not claim remote existence."""
+    if not isinstance(sources, dict) or sources.get('schema_version') != 1:
+        raise ValueError('unsupported provenance schema')
+    upstreams = sources.get('upstreams')
+    if not isinstance(upstreams, list) or len(upstreams) != 3:
+        raise ValueError('expected three declared upstreams')
+    index = {}
+    for upstream in upstreams:
+        if not isinstance(upstream, dict):
+            raise ValueError('upstream must be an object')
+        key = nonempty_text(upstream.get('id'), 'upstream ID')
+        if key in index:
+            raise ValueError(f'duplicate upstream ID: {key}')
+        repository = nonempty_text(upstream.get('repository'), 'repository')
+        if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository):
+            raise ValueError('repository must be owner/name')
+        commit = nonempty_text(upstream.get('commit'), 'commit')
+        if not re.fullmatch(r'[0-9a-f]{40}', commit):
+            raise ValueError('source not pinned to a full commit')
+        nonempty_text(upstream.get('license'), 'license')
+        safe_relative(nonempty_text(upstream.get('license_path'), 'license path'))
+        if 'notice_path' in upstream:
+            safe_relative(nonempty_text(upstream['notice_path'], 'notice path'))
+        index[key] = upstream
+    mappings = sources.get('skills')
+    if not isinstance(mappings, dict) or set(mappings) != SKILLS:
+        raise ValueError('incomplete skill provenance')
+    for skill, mapping in mappings.items():
+        if not isinstance(mapping, dict):
+            raise ValueError(f'invalid source mapping: {skill}')
+        nonempty_text(mapping.get('decision'), 'curation decision')
+        inputs = mapping.get('inputs')
+        if not isinstance(inputs, list) or not inputs:
+            raise ValueError(f'missing source inputs: {skill}')
+        seen = set()
+        for item in inputs:
+            if not isinstance(item, dict):
+                raise ValueError('source input must be an object')
+            key = nonempty_text(item.get('upstream'), 'input upstream')
+            if key not in index:
+                raise ValueError(f'unknown upstream: {key}')
+            path = nonempty_text(item.get('path'), 'source path')
+            safe_relative(path)
+            upstream = index[key]
+            url = f"https://github.com/{upstream['repository']}/blob/{upstream['commit']}/{path}"
+            if item.get('url') != url or (key, path) in seen:
+                raise ValueError(f'inconsistent or duplicate source URL: {skill}: {path}')
+            seen.add((key, path))
 
 
 def validate(root: Path) -> dict:
@@ -119,11 +195,7 @@ def validate(root: Path) -> dict:
         stats.append({'name': meta['name'], 'entry_bytes': len(text.encode('utf-8')),
                       'entry_lines': len(text.splitlines()), 'description_characters': len(meta['description'])})
     sources = read_json(root / 'sources.lock.json')
-    if len(sources['upstreams']) != 3 or set(sources['skills']) != SKILLS:
-        raise ValueError('incomplete source provenance')
-    for upstream in sources['upstreams']:
-        if not re.fullmatch(r'[0-9a-f]{40}', upstream['commit']):
-            raise ValueError('source not pinned to a full commit')
+    check_sources(sources)
     for path in root.rglob('*.py'):
         if '.git' not in path.parts:
             check_docstrings(path)
