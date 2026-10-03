@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_on": "2026-10-02",
+  "reviewed_on": "2026-10-03",
   "upstreams": [
     {
       "id": "awesome-gamedev",
@@ -55,9 +55,14 @@
           "upstream": "awesome-gamedev",
           "path": "skills/disciplines/create-game-assets/references/art-direction.md",
           "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/art-direction.md"
+        },
+        {
+          "upstream": "godot-prompter",
+          "path": "skills/scene-organization/SKILL.md",
+          "url": "https://github.com/jame581/GodotPrompter/blob/3e8d0f005f9604e1dbdad3de693e39555384c5af/skills/scene-organization/SKILL.md"
         }
       ],
-      "decision": "保留类型/生命周期和场景所有权检查；改正唯一名称不是目标重命名安全；不继承强制生成场景、禁止 preload 或递归展开子场景规则。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。"
+      "decision": "保留类型/生命周期和场景所有权检查；改正唯一名称不是目标重命名安全；不继承强制生成场景、禁止 preload 或递归展开子场景规则。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。 preview.4：补回复用、组合与继承的决策，拒绝固定15节点拆分与强制全局事件总线；初始化顺序按官方 Node 文档校正。"
     },
     "godot-data-state": {
       "inputs": [
@@ -72,7 +77,7 @@
           "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/save-systems/SKILL.md"
         }
       ],
-      "decision": "保留 Resource 与存档的数据边界；加入离屏权威状态、稳定 ID 和交易/时间结算的项目适配方法；不把纯计算强制移入 Node。"
+      "decision": "保留 Resource 与存档的数据边界；加入离屏权威状态、稳定 ID 和交易/时间结算的项目适配方法；不把纯计算强制移入 Node。 preview.4：将参考层的全量测试表述改为与结算/时间/恢复修改对应的范围。"
     },
     "godot-ui": {
       "inputs": [
@@ -90,9 +95,14 @@
           "upstream": "awesome-gamedev",
           "path": "skills/disciplines/create-game-assets/references/art-direction.md",
           "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/art-direction.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/references/raster-pipeline.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/raster-pipeline.md"
         }
       ],
-      "decision": "保留 Container/Theme/焦点/本地化知识；补齐真实输入与视觉证据边界，限制局部修改范围。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。"
+      "decision": "保留 Container/Theme/焦点/本地化知识；补齐真实输入与视觉证据边界，限制局部修改范围。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。 preview.4：补回帧对齐、图集边缘、UI状态和素材上屏检查，增加 Godot 4 采样/导入的具体区分；不制作场景资产。"
     },
     "godot-dialogue": {
       "inputs": [
@@ -102,7 +112,7 @@
           "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/dialogue-systems/SKILL.md"
         }
       ],
-      "decision": "保留图/条件/稳定文本身份；重写零有效选项、提交点重验和副作用去重契约，不复制未完整处理的运行器。"
+      "decision": "保留图/条件/稳定文本身份；重写零有效选项、提交点重验和副作用去重契约，不复制未完整处理的运行器。 preview.4：补现有运行器的接入点与可见选择身份映射；保留可信插件脚本能力，不重写解析器；按改动选择验收。"
     },
     "godot-save-load": {
       "inputs": [
@@ -125,9 +135,14 @@
           "upstream": "godot-prompter",
           "path": "skills/godot-debugging/SKILL.md",
           "url": "https://github.com/jame581/GodotPrompter/blob/3e8d0f005f9604e1dbdad3de693e39555384c5af/skills/godot-debugging/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/performance-optimization/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/performance-optimization/SKILL.md"
         }
       ],
-      "decision": "保留远程场景树、信号诊断、Profiler 与复现方法；删除强制跨技能流程，不以 has_method 或空值返回掩盖必需接口错误。"
+      "decision": "保留远程场景树、信号诊断、Profiler 与复现方法；删除强制跨技能流程，不以 has_method 或空值返回掩盖必需接口错误。 preview.4：补回瓶颈分型、测量步骤与同条件比较；不采用无条件对象池，后台资源加载按官方 API 说明。"
     },
     "godot-verification": {
       "inputs": [

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-preview.4 — 2026-10-03
+
+- 内容审查回到七个领域：补现有组件/插件接入、初始化顺序、二维素材导入和可操作的性能诊断。
+- 增加两份按需参考，扩充原对话适配与性能参考；不新增入口、执行脚本、测试平台或游戏素材。
+- 结算/对话验收按实际改动选取；输入设备遵循项目范围；保留可信对话插件的脚本能力。
+- 固定新增来源及每个安装文件哈希；停止将官署制作作为后续交付任务。
+- 46个行为案例保持未运行；内容审读与回归通过不等于真实Agent收益已验证。
+
 ## 0.1.0-preview.3
 
 - Restore task-scoped game art direction, asset-family production, scene composition and visual review to three existing skills.

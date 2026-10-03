@@ -25,6 +25,7 @@ license: Apache-2.0
 ## 按需参考
 - 新方向或整幅画面：[美术方向](references/art-direction.md)。
 - 素材家族、修整与导入：[资产生产](references/asset-production.md)。
+- 贴图过滤、帧表、图集与九宫格：[二维素材接入](references/raster-import.md)。
 - 场景与 HUD、对话、动效：[游戏化呈现](references/game-presentation.md)。
 - 布局与中文：[布局检查](references/layout-localization.md)。
 - 焦点与输入：[交互检查](references/input-visual.md)。
