@@ -1,26 +1,27 @@
 {
   "schema_version": 1,
   "id": "godot-agent-skills",
-  "version": "0.1.0-preview.2",
+  "version": "0.1.0-preview.3",
   "skills": {
     "godot-code-scenes": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "de03f264d6acd9dd084286b9c37394a42164680a8698df8416a9b34a8c9a3073",
+        "SKILL.md": "ca975b20f6cdaefdbef40458ce5dcf1011d6eeb6d1f46cd7a42d0cdaa5b09e05",
         "references/lifecycle.md": "6f9fcf972e8d9e3342abb5f1ecd1714f19f27635aa3f7db3649c91a94eb3ad97",
+        "references/scene-composition.md": "2242b9167c3a4ac5808a3b2f960dcf8e65c1e15c6d2de083d14afd9663e5c256",
         "references/scene-roundtrip.md": "bb98a92f0c9aff8ff12514ff115ed64c72d545272fca039f108497e5d3efa0c7",
-        "references/sources.md": "832ec9908ec41f5f6537f774bcb53f774518821bdee3ed23250a6f227de70cfa",
-        "references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd"
+        "references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd",
+        "references/sources.md": "0150b9a31a9f59b092873f63899e74f23e445002f96dba5104aa3f9fd4bedbd6"
       }
     },
     "godot-data-state": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
         "SKILL.md": "857c871b407b7af4262b22382c820bbe8427c374365ceb1ead1c9f65ab4c58f4",
+        "references/runtime_state.gd": "9c10f61246d16f1acafa37471e0dd043135b26021f1f9f8eb7dca189c3d44842",
         "references/sources.md": "ec9928b773beb1a06b9d6923d355c1bd4243112ac675a77e638d1fd2de820fea",
         "references/state-ownership.md": "8ec6a5dc0851bdd889937eeea8b4d92e235c6207db27a0642709c442614662cb",
-        "references/transactions-time.md": "a8d4e78901d78d4231cd50856463dfe7169fcfcab71f29054d5e733913d8ee55",
-        "references/runtime_state.gd": "9c10f61246d16f1acafa37471e0dd043135b26021f1f9f8eb7dca189c3d44842"
+        "references/transactions-time.md": "a8d4e78901d78d4231cd50856463dfe7169fcfcab71f29054d5e733913d8ee55"
       }
     },
     "godot-debugging": {
@@ -36,10 +37,10 @@
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
         "SKILL.md": "bf4bf691b004eff5fd12735719a573c5be51c3b11ca7af19d58b16ce9445b260",
+        "references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12",
         "references/content-validation.md": "53a11fe8db8950eb843e72d6d18041b5db41b1d2b71228641976721c9108af1d",
         "references/dialogue-contract.md": "3838d65f1762c597b8fe85cbfc0cd194be47e28a0c9aeb8540db6653f6b4e9d6",
-        "references/sources.md": "c7321720eb73f21eecc011d5e14c2c95fbf2ff0833c0b8f0576064ad0d8bc837",
-        "references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12"
+        "references/sources.md": "c7321720eb73f21eecc011d5e14c2c95fbf2ff0833c0b8f0576064ad0d8bc837"
       }
     },
     "godot-save-load": {
@@ -47,28 +48,32 @@
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
         "SKILL.md": "54eb32d6ca5a906dc285acfffd43281b981eedd008172596046cdd34a20566e0",
         "references/load-migration.md": "35f740e950decd5b3d5a461ebdf31727c37f06c26917bfa7246f2f62d185ebc8",
+        "references/save_envelope.gd": "f9ec3cb67cf639a4ede5d211c8a92a9fed70d6e5f6988f88476834b29d091f9f",
         "references/sources.md": "831f97c5e687df231bb8e1ed57912bf22a82222210c1e37d8072fb54f908a537",
-        "references/write-recovery.md": "5d4d2b420d7f9f8db39b4a504211c8dffe58fdd60086237bec6e5f74a91843f1",
-        "references/save_envelope.gd": "f9ec3cb67cf639a4ede5d211c8a92a9fed70d6e5f6988f88476834b29d091f9f"
+        "references/write-recovery.md": "5d4d2b420d7f9f8db39b4a504211c8dffe58fdd60086237bec6e5f74a91843f1"
       }
     },
     "godot-ui": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "1bee32add7e508c72386546c0d0666ce94841d06063a81cec4a2979feccc8ece",
+        "SKILL.md": "dd8f5b384dca8e28ac963ce0d6a7bbc8fec51bb7b3fb78aff0e73405bd5712e7",
+        "references/art-direction.md": "6020fa9eda10c380c0a45adac123182f84b90b930cd899b0a7629e3640b88071",
+        "references/asset-production.md": "68a8c06a1b0233a97b6b2835666cb8e7653f0ba78b6daac101c3b71e2365307c",
+        "references/game-presentation.md": "c3e8a0b3f37e237bad36c075e29f550c7b141efb0d151a5cffca0a092c1216e4",
         "references/input-visual.md": "0330e536a30c760d1420c5582d4711fa9c6d92fc238f68d1f6072bdf9f85d53d",
         "references/layout-localization.md": "555959ca8bbaf5b65dd5fb0eed0f0ca5df965057f69b233354c9b8f4ce81d51d",
-        "references/sources.md": "dfb5d2b65ebd5be6cbfff2540ccf16809ea0f8847220c81535ae06ec9b18c33f",
-        "references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559"
+        "references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559",
+        "references/sources.md": "57340162cfca401b24c9465259ef92cc70038e4ee5d2d104f927d389287ba78a"
       }
     },
     "godot-verification": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
-        "SKILL.md": "750e038ae09b154d16d57c2b5ca940c73053b8a20da1143c8f39bf4a7ecee643",
+        "SKILL.md": "969384fa9b8e9511bd1f4c1390f35c8eda0b0b05c1f05f1ff657c5d2d34e8a41",
+        "references/art-review.md": "f57ce10c6d0c710e9f710f392c079e0405cb4ef764ce189fd56d4fc73b5751f3",
         "references/commands.md": "792e79d0ee5e3652eb7bd564fa57a1a876cc259a1584d02d1c648b2f2d65105b",
         "references/coverage.md": "6d1bbb0f9620d07a0ee8b15f04434f953ae7d14ff459c2494dd5140aa380c30c",
-        "references/sources.md": "e274f1d09b2ee1c2febd57edea1c5e7752d1877dec2006a92cc90565e4dbbc71",
+        "references/sources.md": "c025c1534a72e774379dab476d296d1a9ea8cdb81304e59b167d42cd4fbc5da0",
         "scripts/run_check.py": "2d5c3adf2ab338720e310602802ebaf315c921ff0a737f63c645fb9869bd1dd6"
       }
     }

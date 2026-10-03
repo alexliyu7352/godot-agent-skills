@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-preview.3
+
+- Restore task-scoped game art direction, asset-family production, scene composition and visual review to three existing skills.
+- Add five installable on-demand references, fixed upstream attribution, eight unexecuted host cases and three publication regression tests.
+- Keep seven entry points and existing code/test runners; do not equate technical fixtures or concept art with finished gameplay.
+- See `docs/ART_REVISION.md` for actual scope and remaining asset/engine work.
+
 ## 0.1.0-preview.2 — 2026-10-02
 
 - 修复审查 R1–R3 与 R7–R8，并加入真实子进程/文件/Git 回归。

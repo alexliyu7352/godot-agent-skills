@@ -1,6 +1,6 @@
 ---
 name: godot-code-scenes
-description: "Use when writing or fixing Godot .gd scripts, C# components, typed script APIs, node lifecycle, scene ownership, instantiation or .tscn serialization. Not for UI-only styling, narrative text or unrelated code. 适用于独立脚本、类型接口与场景集成。"
+description: "Use when writing or fixing Godot .gd scripts, C# components, typed script APIs, node lifecycle, layered locations and hotspots, scene ownership, instantiation or .tscn serialization. Not for UI-only styling, narrative text or unrelated code. 适用于独立脚本、类型接口与场景集成。"
 license: Apache-2.0
 ---
 
@@ -19,10 +19,14 @@ license: Apache-2.0
 4. 对 `await` 后继续使用的对象检查生命周期和取消/过期请求条件。连接信号的职责应明确；用连接计数掩盖重复初始化通常不是修复。
 5. 保存场景时检查 `PackedScene.pack()` 和 `ResourceSaver.save()` 的结果；重载验证预期节点、类型和关键属性。节点数相同不证明保存正确。
 
+## 场景表现任务
+新场所或分层素材接入时，按已批准的构图安排背景、人物、前景和热点；临时对话关闭后保留同一场所。局部脚本修复不加载美术流程，也不把世界规则强制放进可见节点。
+
 ## 验证与交付
 运行受影响脚本/场景的适当检查，查看实际加载错误。结构检查不证明 `_ready()`、运行交互或画面通过；涉及这些行为就补对应运行。给出改动位置、验证范围和未验证项，不展开无关架构讲解。
 
 ## 按需参考
+- 新场所、分层美术与热点：[场景构图](references/scene-composition.md)。
 - 生命周期、类型、资源边界：[工程检查表](references/lifecycle.md)。
 - 场景生成、owner、重载验证：[场景保存检查](references/scene-roundtrip.md)。
 - 来源及改写：[来源记录](references/sources.md)。

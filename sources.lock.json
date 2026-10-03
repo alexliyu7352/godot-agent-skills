@@ -45,9 +45,19 @@
           "upstream": "godogen-fork",
           "path": ".claude/skills/godogen/scene-generation.md",
           "url": "https://github.com/liangdabiao/Godogen/blob/8f315780bf50eea1875e08c8b614930e9d6e8450/.claude/skills/godogen/scene-generation.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/references/art-direction.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/art-direction.md"
         }
       ],
-      "decision": "保留类型/生命周期和场景所有权检查；改正唯一名称不是目标重命名安全；不继承强制生成场景、禁止 preload 或递归展开子场景规则。"
+      "decision": "保留类型/生命周期和场景所有权检查；改正唯一名称不是目标重命名安全；不继承强制生成场景、禁止 preload 或递归展开子场景规则。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。"
     },
     "godot-data-state": {
       "inputs": [
@@ -70,9 +80,19 @@
           "upstream": "awesome-gamedev",
           "path": "skills/godot/godot-ui-control/SKILL.md",
           "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/godot/godot-ui-control/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/references/art-direction.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/art-direction.md"
         }
       ],
-      "decision": "保留 Container/Theme/焦点/本地化知识；补齐真实输入与视觉证据边界，限制局部修改范围。"
+      "decision": "保留 Container/Theme/焦点/本地化知识；补齐真实输入与视觉证据边界，限制局部修改范围。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。"
     },
     "godot-dialogue": {
       "inputs": [
@@ -125,9 +145,19 @@
           "upstream": "godogen-fork",
           "path": ".claude/skills/godogen/scene-generation.md",
           "url": "https://github.com/liangdabiao/Godogen/blob/8f315780bf50eea1875e08c8b614930e9d6e8450/.claude/skills/godogen/scene-generation.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/SKILL.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/SKILL.md"
+        },
+        {
+          "upstream": "awesome-gamedev",
+          "path": "skills/disciplines/create-game-assets/references/art-direction.md",
+          "url": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/d4b0e35550c55ae70bdfcab4ef5a0e94610438a9/skills/disciplines/create-game-assets/references/art-direction.md"
         }
       ],
-      "decision": "保留明确退出、导入、日志、超时和保存重载证据；新写无网络命令包装器，不带入视觉 API/模型、发布安装器和完整编排流程。"
+      "decision": "保留明确退出、导入、日志、超时和保存重载证据；新写无网络命令包装器，不带入视觉 API/模型、发布安装器和完整编排流程。 补入固定版本 create-game-assets 的视觉目标、成套资产与上屏审查方法；按 Godot 场景/UI/验收职责改写，不继承总路由、模型设置或所有任务完整出图要求。"
     }
   }
 }

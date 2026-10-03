@@ -2,25 +2,25 @@
 
 面向**已经在开发中的 Godot 4 游戏**，尤其是长期策略／角色扮演项目。它是七个按任务使用的领域技能，不是游戏内 AI，也不是新的项目总控或游戏生成器。
 
-**安装包版本：0.1.0-preview.2。** 完整包已在 `main`；本轮只增加验证材料和准备工具，七个技能与 `pack.json` 的安装内容未改变。源码、参考实现、工具、来源与许可证均保存在 GitHub，不依赖会话下载。
+**安装包版本：0.1.0-preview.3。** 本版把此前遗漏的美术方向、成套资产生产、场景构图和游戏化呈现补进实际安装包；仍然只有七个入口，新增内容为五份按需参考。具体变化与尚未完成的美术制作见 [美术能力修订](docs/ART_REVISION.md)。
 
-**验证进展：**离线回归增加到 60 项；Godot 4.6 的 15 个原始合同步骤继续通过；新增真实 X11/OpenGL 中文界面渲染，三个窗口各 34 条断言通过，并抓住两种故意 UI 错误。[运行 37068020868](https://github.com/alexliyu7352/godot-agent-skills/actions/runs/37068020868)还校准了五组已知坏/已知好候选的独立评分器。后续提交以 [main CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 为准。
+此前的 15 张合成界面截图仅用于布局和输入故障检查，**不是《汉末行记》的美术目标或界面成品**。本版不以无溢出、能点击或 CI 通过代替美术评价。[官署视觉目标](examples/han-office/VISUAL_TARGET.md)是项目候选规格，不把概念图冒充 Godot 实机。
 
-[15 张原始截图与摘要](docs/evidence/visual-37067190631/)已纳入 Git；[实际图像查看记录](docs/VISUAL_REVIEW.md)明确区分已看过的图片、合成事件和真实游戏。真实 Codex/Claude 自动触发及 38 个 Agent 案例仍为 `NOT_RUN`；CI 和评分器通过不能证明 Agent 提效或保证游戏质量。
+真实 Codex/Claude 自动触发及 [46 个 Agent 案例](evals/README.md)仍为 `NOT_RUN`。最新测试结果以 [main CI](https://github.com/alexliyu7352/godot-agent-skills/actions/workflows/validate.yml?query=branch%3Amain) 和具体提交的实际日志为准；旧版 [验证报告](docs/TEST_REPORT.md)与[截图查看记录](docs/VISUAL_REVIEW.md)保留历史范围，不改写成新美术已经通过。
 
 ## 七个入口
 
 | 技能 | 内容 |
 |---|---|
-| `godot-code-scenes` | 脚本/场景集成、生命周期、owner、打包和重载 |
+| `godot-code-scenes` | 脚本/场景集成、生命周期、owner、分层场所与热点坐标 |
 | `godot-data-state` | 数据定义、离屏状态、稳定 ID、跨系统结算与时间 |
-| `godot-ui` | Control/Theme、中文布局、焦点与真实输入 |
+| `godot-ui` | 游戏美术方向、素材家族、场景与 HUD、Control/Theme、中文布局与输入 |
 | `godot-dialogue` | 条件分支、零选项、重入/重复效果、可退出路径 |
 | `godot-save-load` | 一致快照、迁移、未来版本拒绝、暂存恢复、I/O 失败 |
 | `godot-debugging` | 错误复现、运行树/信号、异步生命周期、性能定位 |
-| `godot-verification` | 按风险选择证据、假通过诊断、实际交互/视觉边界 |
+| `godot-verification` | 按风险选择证据、假通过诊断、明确美术审查与实际交互 |
 
-每个入口只链接自己的按需参考。没有第八个总路由器，没有 hooks、预授权工具、自动安装依赖、固定模型/服务、强制子 Agent 或全任务 TDD。不会改变已有语言/架构/项目流程，不包含原上游的发布安装器。
+每个入口只链接自己的按需参考。没有第八个总路由器，没有 hooks、预授权工具、自动安装依赖、固定模型/服务、强制子 Agent 或全任务 TDD。小修改沿用已批准美术，不重新出图；也不会改变已有语言/架构/项目流程。
 
 ## 安装：只安装这一套
 
@@ -44,7 +44,8 @@ python3 tools/install.py --host claude --project /absolute/path/to/game
 安装前检查全部目标冲突。未经本包收据管理的同名目录，即使看起来相同也拒绝覆盖；已安装内容有本地改动或额外文件时，更新/卸载同样拒绝。不会覆盖 `AGENTS.md`、`CLAUDE.md`、`.gitignore` 或其他技能。
 
 ```bash
-# 阅读来源变化后，更新未被本地修改的受管文件。
+# 从旧版更新未经本地修改的受管文件；Claude 用户替换 host 值。
+python3 tools/install.py --host codex --project /absolute/path/to/game --update --dry-run
 python3 tools/install.py --host codex --project /absolute/path/to/game --update
 
 # 仅移除本包收据拥有、且未经修改的七个技能。
@@ -55,18 +56,16 @@ python3 tools/install.py --host codex --project /absolute/path/to/game --uninsta
 
 优先使用工程现有运行器。附带 `run_check.py` 只包装一条明确命令，保存新 stdout/stderr、退出码、超时、常见错误摘要和可选完成标记；不使用网络或 LLM。详细限制见 [命令检查](skills/godot-verification/references/commands.md)。
 
-运行本包离线测试：
-
 ```bash
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
 python3 tools/validate.py
 ```
 
-[38 个真实 Agent 评估案例](evals/README.md) 已定义，但没有冒充实际运行结果。
+[46 个真实 Agent 评估案例](evals/README.md)已定义，没有冒充实际运行结果；新增美术案例涵盖素材一致性、场所呈现、局部修改与无关网页负例。
 
 ## 小型引擎验收与审查修订
 
-[修订清单](docs/REVIEW_FIXES.md) 对应 R1–R8。五个按需 GDScript 示例位于对应技能 references 中，不添加新 Skill 入口。
+[修订清单](docs/REVIEW_FIXES.md)对应 R1–R8。五个按需 GDScript 示例位于对应技能 references 中，不添加新 Skill 入口。
 
 ```bash
 python3 tools/check_fixtures.py --godot /absolute/path/to/godot --out /tmp/fresh-fixture-evidence
@@ -76,13 +75,13 @@ python3 tools/check_fixtures.py --godot /absolute/path/to/godot --out /tmp/fresh
 
 ## 真实渲染与有/无技能包对照
 
-渲染命令、CI 依赖与输入范围见 [视觉夹具说明](evals/visual/README.md)。代码通过真实渲染获取 PNG，不以 headless 退出成功代替看图。
+渲染命令、CI 依赖与输入范围见 [视觉夹具说明](evals/visual/README.md)。代码通过真实渲染获取 PNG，不以 headless 退出成功代替看图。该合成夹具保持技术用途，不是美术示例。
 
 [宿主对照说明](evals/HOST_TRIALS.md)提供相同初始任务的对照/安装两组、任务文本、起始提交和独立评分器。准备工具不调用模型，不替用户登录，不改变模型和推理设置。没有真实宿主轨迹时保持 `NOT_RUN`。
 
 ## 合并范围与维护
 
-以 awesome-gamedev 的领域知识为主要基础，提取 GodotPrompter 的专项调试方法和 Godogen 的场景保存/验证实践，重新编排与纠错。不是原文件机械拼接，也不是把三个原库当成运行时依赖。
+以 awesome-gamedev 的领域知识为主要基础，提取 GodotPrompter 的专项调试方法和 Godogen 的场景保存/验证实践，重新编排与纠错。preview.3 进一步吸收固定版本 `create-game-assets` 的美术生产方法，不将其原总路由注册进本包。
 
 - [设计与边界](docs/DESIGN.md)
 - [逐项取舍与已知局限](docs/CURATION.md)
