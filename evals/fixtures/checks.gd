@@ -130,6 +130,8 @@ func test_dialogue() -> void:
 		check(empty.routes[0].kind == "return", "dialogue/return route")
 	check(not Choices.choose("deliver", options, eligible).ok, "dialogue/stale choice refused")
 	check(Choices.choose("__return__", options, eligible).ok, "dialogue/can leave")
+	eligibility.ready = true
+	check(Choices.choose("__return__", options, eligible).ok, "dialogue/shown return survives topic change")
 
 func on_return() -> void:
 	## Observe actual Button event handling; tests do not call this handler directly.
