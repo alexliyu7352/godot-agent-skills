@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
   "id": "godot-agent-skills",
-  "version": "0.1.0-preview.4",
+  "version": "0.1.0-preview.5",
   "skills": {
     "godot-code-scenes": {
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
         "SKILL.md": "f456a153efacee806d33d6d54738c9389a3e1983cf8f4282cae5794d049c8cd7",
-        "references/lifecycle.md": "6f9fcf972e8d9e3342abb5f1ecd1714f19f27635aa3f7db3649c91a94eb3ad97",
+        "references/lifecycle.md": "e875602d9c2fbf30f55ba0bbe0e6f732af03ffb19eefd069f9d7f7511d54dde2",
         "references/reuse-integration.md": "3aaaa7a4447afb065f4c0e0b8ca9b622bca26f6de921a1e15dbac85eb7e12ad9",
         "references/scene-composition.md": "2242b9167c3a4ac5808a3b2f960dcf8e65c1e15c6d2de083d14afd9663e5c256",
-        "references/scene-roundtrip.md": "bb98a92f0c9aff8ff12514ff115ed64c72d545272fca039f108497e5d3efa0c7",
-        "references/scene_snapshot.gd": "5df4c80490fdf923a049139467b12ebb49c5ad8e2302c86aa15113174104c7dd",
+        "references/scene-roundtrip.md": "cbc30214fb52fc23bf2d1edc534127494e99c91bb72c0dd904a65bee8e50c695",
+        "references/scene_snapshot.gd": "afa6dc63ddb85a1d8b2d9c46b4ba57ae2496a99ca3ecb1fd6aeaee3111725477",
         "references/sources.md": "e13192cb340425a4644ba34fdfdfd325243a04a210c9e55899147b1edeb8cd7e"
       }
     },
@@ -38,9 +38,9 @@
       "files": {
         "LICENSE.txt": "b5f46efc6c994b6634d947561485e9f6f2f41d04ee302c023b00829fc5e6d5f3",
         "SKILL.md": "bf4bf691b004eff5fd12735719a573c5be51c3b11ca7af19d58b16ce9445b260",
-        "references/choice_routes.gd": "42afc54f8e40d36d13ab0ab6d983371b1c329e902708a3d34b372e33a94f0f12",
+        "references/choice_routes.gd": "a41e069aa67c481ad8a4adf4cf4bc2c0c81195fefdbcfb39052c0aba73871840",
         "references/content-validation.md": "316d517557e11d22883bd615adf0ad73ade8fcafd88575c121d2efa861a09292",
-        "references/dialogue-contract.md": "16d5c2311152f183233189dbe0b8ddcf4cb7efa2f5edf4aaa03c8fe3c200158b",
+        "references/dialogue-contract.md": "55a68515eb3b5ca72795ea24d29eeb995f28c07b7211e001adc8f1b1a1885607",
         "references/sources.md": "c7321720eb73f21eecc011d5e14c2c95fbf2ff0833c0b8f0576064ad0d8bc837"
       }
     },
@@ -61,7 +61,7 @@
         "references/art-direction.md": "6020fa9eda10c380c0a45adac123182f84b90b930cd899b0a7629e3640b88071",
         "references/asset-production.md": "68a8c06a1b0233a97b6b2835666cb8e7653f0ba78b6daac101c3b71e2365307c",
         "references/game-presentation.md": "9c8ef4619f00d0b4834d7f16aa1789ebf0782aa16a10d38f16797cd2d193a97f",
-        "references/input-visual.md": "0330e536a30c760d1420c5582d4711fa9c6d92fc238f68d1f6072bdf9f85d53d",
+        "references/input-visual.md": "170a2b510c38f39f6d4305400e79c2b6873106f8f13cbb091296b074b6f95328",
         "references/layout-localization.md": "555959ca8bbaf5b65dd5fb0eed0f0ca5df965057f69b233354c9b8f4ce81d51d",
         "references/local_theme.gd": "ccdc1d9dbb1f01e9a383932537c4e023f9c86fd8081add2109ef915b627e6559",
         "references/raster-import.md": "8a221c632643ff6abb53dbc55c370808a2672eecd830d1cdf5a0392231f8c3e9",

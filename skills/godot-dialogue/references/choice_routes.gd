@@ -3,7 +3,7 @@ extends RefCounted
 ## 保留 __return__ 给退出路由。可选 ID 必须是唯一的非空 String。
 
 static func available_routes(options: Array[Dictionary], eligible: Callable) -> Dictionary:
-	## 根据实时条件过滤；全部不可用时仍返回一个可退出的显式路由。
+	## 根据实时条件过滤；零选项返回导航候选，实际退出仍由会话策略决定。
 	var routes: Array[Dictionary] = []
 	var seen: Dictionary = {}
 	for option in options:
@@ -17,8 +17,15 @@ static func available_routes(options: Array[Dictionary], eligible: Callable) -> 
 		routes.append({"id": "__return__", "kind": "return"})
 	return {"ok": true, "routes": routes}
 
-static func choose(id: String, options: Array[Dictionary], eligible: Callable) -> Dictionary:
-	## 点击时重新构造允许集合，拒绝已过期选项；不在展示阶段扣款或发奖。
+static func choose(id: String, options: Array[Dictionary], eligible: Callable, can_return: Callable = Callable()) -> Dictionary:
+	## 业务选项重验资格；导航只检查独立退出策略，不因话题资格变化作废。
+	if id == "__return__":
+		if not can_return.is_valid():
+			return {"ok": false, "reason": "return_policy_required"}
+		var permitted = can_return.call()
+		if not permitted is bool or not permitted:
+			return {"ok": false, "reason": "return_blocked"}
+		return {"ok": true, "route": {"id": "__return__", "kind": "return"}}
 	var current := available_routes(options, eligible)
 	if not current.ok:
 		return current

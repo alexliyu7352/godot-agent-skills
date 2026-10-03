@@ -105,9 +105,13 @@ func show_state(empty: bool) -> void:
 	if choice_box.get_child_count() > 0:
 		(choice_box.get_child(0) as Button).grab_focus()
 
+func can_return() -> bool:
+	## This fixture has no transactions; hidden/closed panels invalidate return.
+	return is_instance_valid(panel) and panel.is_visible_in_tree()
+
 func on_route(id: String) -> void:
 	## Observe the actual Button signal; no test calls this function directly.
-	var selected := Choices.choose(id, routes, eligible)
+	var selected := Choices.choose(id, routes, eligible, can_return)
 	if not selected.ok:
 		status.text = "条件已变化，请重新选择。"
 		return

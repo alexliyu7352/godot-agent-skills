@@ -121,6 +121,8 @@ func test_dialogue() -> void:
 	var options: Array[Dictionary] = [{"id": "deliver"}]
 	var eligibility := {"ready": true}
 	var eligible := func(_id): return eligibility.ready
+	var session := {"active": true, "committing": false, "return_offered": true}
+	var can_return := func(): return session.active and not session.committing and session.return_offered
 	var shown := Choices.available_routes(options, eligible)
 	check(shown.ok and shown.routes.size() == 1, "dialogue/available choice")
 	eligibility.ready = false
@@ -129,9 +131,27 @@ func test_dialogue() -> void:
 	if empty.routes.size() == 1:
 		check(empty.routes[0].kind == "return", "dialogue/return route")
 	check(not Choices.choose("deliver", options, eligible).ok, "dialogue/stale choice refused")
-	check(Choices.choose("__return__", options, eligible).ok, "dialogue/can leave")
+	check(Choices.choose("__return__", options, eligible, can_return).ok, "dialogue/can leave")
 	eligibility.ready = true
-	check(Choices.choose("__return__", options, eligible).ok, "dialogue/shown return survives topic change")
+	check(Choices.choose("__return__", options, eligible, can_return).ok, "dialogue/shown return survives topic change")
+	check(Choices.choose("deliver", options, eligible).ok, "dialogue/newly eligible choice accepted")
+	session.active = false
+	check(not Choices.choose("__return__", options, eligible, can_return).ok, "dialogue/inactive session cannot return")
+	session.active = true
+	session.committing = true
+	check(not Choices.choose("__return__", options, eligible, can_return).ok, "dialogue/commit exit policy respected")
+	session.committing = false
+	session.return_offered = false
+	check(not Choices.choose("__return__", options, eligible, can_return).ok, "dialogue/unoffered return refused")
+	session.return_offered = true
+	check(Choices.choose("__return__", options, eligible).reason == "return_policy_required", "dialogue/return requires explicit policy")
+	var non_boolean_policy := func(): return "allowed"
+	check(not Choices.choose("__return__", options, eligible, non_boolean_policy).ok, "dialogue/nonboolean policy refused")
+	eligibility.ready = false
+	check(not Choices.choose("deliver", options, eligible, can_return).ok, "dialogue/business still revalidated")
+	var no_eligibility := Callable()
+	check(Choices.choose("__return__", options, no_eligibility, can_return).ok, "dialogue/navigation does not read business eligibility")
+
 
 func on_return() -> void:
 	## Observe actual Button event handling; tests do not call this handler directly.

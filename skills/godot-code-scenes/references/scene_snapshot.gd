@@ -12,7 +12,9 @@ static func save_and_reload(root: Node, path: String) -> Dictionary:
 	error = ResourceSaver.save(packed, path)
 	if error != OK:
 		return {"ok": false, "reason": "save_failed", "error": error}
-	# 绕过已有缓存，不能只实例化上面的内存 packed 后宣称磁盘重载通过。
+	# IGNORE 绕过主场景与内嵌子资源缓存；外部依赖仍可能按 REUSE 取缓存。
+	# 本 helper 不证明整个依赖图均来自磁盘；需要该证据时使用干净进程，
+	# 或在锁定版本支持时明确采用 IGNORE_DEEP，并测试外部依赖。
 	var reloaded := ResourceLoader.load(path, "PackedScene", ResourceLoader.CACHE_MODE_IGNORE) as PackedScene
 	if reloaded == null:
 		return {"ok": false, "reason": "reload_failed"}
